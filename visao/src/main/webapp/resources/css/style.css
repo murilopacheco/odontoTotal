@@ -1,0 +1,128 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 03/05/2017, 12:54:35
+    Author     : Danillo
+*/
+
+body{
+    background-color: #ffffff;
+    border: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px;
+    max-width: 1000px;
+}
+
+header nav{
+    margin: auto;
+    clear: both;
+    max-width: 1000px;
+    background-color: #fff;
+    display: block;
+}
+
+#footer-brasil {
+    background: none repeat scroll 0% 0% #0042b1;
+    padding: 1em 0px;
+    max-width: 100%;
+}
+
+.header_section{
+    max-width: 1000px;
+    margin: auto;
+    position: relative;
+    display: flex;
+    padding-top: 40px;
+    padding-bottom: 10px;
+    height: 200px;
+}
+
+.header_link_logo{
+    padding-left: 0px;
+    padding-right: 30px;
+    text-decoration: none;
+    color: inherit;
+    width: 125px;
+
+}
+
+.header_title{
+    font-size: x-large;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.header_link_logo img{
+    vertical-align: middle;
+    height: auto;
+}
+
+.dropdown{
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    text-decoration: none;
+
+    list-style: none;
+    list-style-image: none;
+    list-style-position: inherit;
+    list-style-type: none;
+
+    color: #bcbcbc;
+}
+
+.dropdown li{
+    display: inline;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 5px;
+    color: #bcbcbc;
+}
+
+.dropdown li:hover{
+    text-decoration: none;
+    background-color: #689eca;
+    color: #fff;
+}
+
+.dropdown a{
+    text-decoration: none;
+    color: inherit;
+}
+
+/*.dropdown a:link{
+    text-decoration: none;
+    color: inherit;
+}
+.dropdown a:visited{
+    text-decoration: none;
+    color: inherit;
+}
+
+.dropdown a:active{
+    text-decoration: none;
+    color: inherit;
+}
+
+.dropdown a:hover{
+    text-decoration: none;
+    color: inherit;
+}*/
+
+#content{
+    padding-top: 30px;
+    padding-bottom: 50px;
+}
+
+.ui-datatable .ui-column-filter{
+    width: 75% !important;
+}
