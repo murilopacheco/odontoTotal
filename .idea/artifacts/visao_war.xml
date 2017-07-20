@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="visao:war">
+    <output-path>$PROJECT_DIR$/visao/target</output-path>
+    <root id="archive" name="visao-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="visao:war exploded" />
+    </root>
+  </artifact>
+</component>
