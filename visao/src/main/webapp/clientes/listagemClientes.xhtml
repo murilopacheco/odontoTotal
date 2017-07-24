@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template/layout.xhtml">
+
+            <ui:define name="content">
+                <h1>
+                    Cadastro de Clientes
+                </h1>
+                <form id="formCadastro">
+                    <p:panelGrid columns="4" >
+                        <p:outputLabel value="Nome:" for="txtNome"/>
+                        <p:inputText id="txtNome" value="#{clienteBean.cliente.nome}"/>
+                        <p:outputLabel value="CPF:" for="txtCPF"/>
+                        <p:inputMask id="txtCPF" value="#{clienteBean.cliente.CPF}"
+                                     mask="999.999.999-99"/>
+                        <p:outputLabel value="Endereço:"/>
+                        <p:inputText id="txtEndereco" value="#{clienteBean.cliente.endereco}"/>
+                        <p:outputLabel value="Data de Nascimento:"/>
+                        <p:inputText id="txtNascimento" converter="jsfLocalDateConverter" 
+                                     value="#{clienteBean.cliente.dataNascimento}
+                                     " />
+                    </p:panelGrid>
+                </form>
+                
+                
+                <h1>Listagem de Clientes</h1>
+
+                <h:form id="formLista">
+
+                    <p:dataTable id="tabela_clientes" 
+                                 var="c" 
+                                 value="#{clienteBean.clientes}"
+                                 rows="10" 
+                                 paginator="true" 
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
+                                 {PreviousPageLink} {PageLinks} {NextPageLink} 
+                                 {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="10,20,50,100,1000"
+                                 selectionMode="single"
+                                 sortBy="#{c.nome}"
+                                 rowKey="#{c.id}"
+                                 emptyMessage="Nenhum cliente encontrado" >
+                        <p:column headerText="Id" filterBy="#{c.id}" 
+                                  sortBy="#{c.id}" filterMatchMode="exact">
+                            <h:outputText value="#{c.id}" />
+                        </p:column>
+                        <p:column headerText="Nome" 
+                                  filterBy="#{c.nome}" 
+                                  sortBy="#{c.nome}" 
+                                  filterMatchMode="startsWith">
+                            <h:outputText value="#{c.nome}" />
+                        </p:column>
+                        <p:column headerText="Ações">
+                            <p:button 
+                                onclick="#{clienteBean.prepararAtualizacaoEgresso(c)}" 
+                                value="Editar" icon="fa-edit"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>
+

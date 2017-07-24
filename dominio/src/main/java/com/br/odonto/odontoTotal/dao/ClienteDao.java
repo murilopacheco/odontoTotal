@@ -15,7 +15,7 @@ public class ClienteDao extends GenericDao<Cliente> implements IEntityDao<Client
         sb.append("select c.* ").
                 append("from Cliente c ").
                 
-                append("where c.`DTYPE` like 'CLI'");
+                append("where c.id > 0");
         if (sqlFiltro != null && !sqlFiltro.isEmpty()) {
             sb.append(" and ").append(sqlFiltro);
         }

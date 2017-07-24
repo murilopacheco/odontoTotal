@@ -9,9 +9,11 @@ import com.br.odonto.odontoTotal.controller.ClienteController;
 import com.br.odonto.odontoTotal.dominio.Cliente;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 /**
@@ -19,7 +21,7 @@ import javax.inject.Named;
  * @author murilo
  */
 @Named(value = "clienteBean")
-@SessionScoped
+@ViewScoped
 public class ClienteBean implements Serializable {
 
     // Add business logic below. (Right-click in editor and choose
@@ -37,13 +39,18 @@ public class ClienteBean implements Serializable {
     private List<Cliente> clientes;
     
      public ClienteBean() {
-        
+        this.cliente = new Cliente();
         controller = new ClienteController();
         StringBuilder sb = new StringBuilder();
         sb.append("select c.* ").
                 append("from Cliente c ").
                 append("where c.`DTYPE` like 'CLI' ");
         sqlContent = sb.toString();
+    }
+     
+    @PostConstruct
+    public void init(){
+        consultar();
     }
      
      public String atualizar() {
@@ -60,6 +67,14 @@ public class ClienteBean implements Serializable {
         }
         return "/clientes/atualizaDadosPessoais";
 
+    }
+     
+     public void consultar() {
+        this.clientes = controller.consultar(sqlFiltro, limiteRegistros);
+    }
+     
+     public void prepararAtualizacaoEgresso(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public String getSqlFiltro() {
@@ -101,8 +116,5 @@ public class ClienteBean implements Serializable {
     public void setClientes(List<Cliente> clientes) {
         this.clientes = clientes;
     }
-     
-     
-     
 
 }

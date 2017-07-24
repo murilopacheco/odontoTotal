@@ -11,18 +11,18 @@
         <ui:composition template="/template/layout.xhtml">
 
             <ui:define name="content">
-                <h1>Consulta de egressos</h1>
+                <h1>Consulta de Clientes</h1>
 
                 <h:form>
                     <p>
-                        <h:outputText value="#{clienteBean.client}"/>
+                        <h:outputText value="#{clienteBean.sqlContent}"/>
                     </p>
                     <p:inputTextarea rows="10" cols="50"
                                      autoResize="false" 
                                      value="#{clienteBean.sqlFiltro}"/>
                     <br/>
                     <h:commandButton value="Consultar" 
-                                     action="#{egressoBean.consultar()}"/>
+                                     action="#{clienteBean.consultar()}"/>
                     <p>
                         Dois curingas
                         <ul>
