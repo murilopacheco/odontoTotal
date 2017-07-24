@@ -21,7 +21,7 @@ public class DataGenerator {
         cliente.setNome("Cliente Teste");
         cliente.setCPF("673.780.581-73");
         cliente.setEndereco("Rua 1 numero 1 quadra 1 lote 1 Setor Teste CEP 74000-000");
-        cliente.setDataNascimento(LocalDate.of(1985, Month.MARCH, 6));
+        cliente.setDataNascimento(LocalDate.now());
         em.persist(cliente);
 
         return cliente;

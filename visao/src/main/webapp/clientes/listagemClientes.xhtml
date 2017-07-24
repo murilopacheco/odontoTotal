@@ -24,9 +24,8 @@
                         <p:outputLabel value="Endereço:"/>
                         <p:inputText id="txtEndereco" value="#{clienteBean.cliente.endereco}"/>
                         <p:outputLabel value="Data de Nascimento:"/>
-                        <p:inputText id="txtNascimento" converter="jsfLocalDateConverter" 
-                                     value="#{clienteBean.cliente.dataNascimento}
-                                     " />
+                        <p:calendar showOn="button" id="txtNascimento"  
+                                    value="#{clienteBean.cliente.dataNascimento}" pattern="dd/mm/yyyy" converter="jsfLocalDateConverter"/>
                     </p:panelGrid>
                 </form>
                 
@@ -61,7 +60,7 @@
                         <p:column headerText="Ações">
                             <p:button 
                                 onclick="#{clienteBean.prepararAtualizacaoEgresso(c)}" 
-                                value="Editar" icon="fa-edit"/>
+                                value="Editar" icon="ui-icon-pencil"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>

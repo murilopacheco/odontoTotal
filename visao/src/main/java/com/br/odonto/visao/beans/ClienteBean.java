@@ -13,7 +13,6 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 /**
@@ -21,7 +20,7 @@ import javax.inject.Named;
  * @author murilo
  */
 @Named(value = "clienteBean")
-@ViewScoped
+@SessionScoped
 public class ClienteBean implements Serializable {
 
     // Add business logic below. (Right-click in editor and choose
@@ -33,13 +32,13 @@ public class ClienteBean implements Serializable {
     private String sqlContent;
 
     private int limiteRegistros;
-    
+
     private Cliente cliente;
-    
+
     private List<Cliente> clientes;
-    
-     public ClienteBean() {
-        this.cliente = new Cliente();
+
+    public ClienteBean() {
+
         controller = new ClienteController();
         StringBuilder sb = new StringBuilder();
         sb.append("select c.* ").
@@ -47,20 +46,20 @@ public class ClienteBean implements Serializable {
                 append("where c.`DTYPE` like 'CLI' ");
         sqlContent = sb.toString();
     }
-     
+
     @PostConstruct
-    public void init(){
+    public void init() {
         consultar();
     }
-     
-     public String atualizar() {
+
+    public String atualizar() {
         List<String> inconsistencias = controller.atualizar(cliente);
         if (inconsistencias.isEmpty()) {
             FacesContext contexto = FacesContext.getCurrentInstance();
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Atualização realizada com sucesso", "");
-            contexto.addMessage("/clientes/atualizaDadosPessoais", msg);
+            contexto.addMessage("/clientes/listagemClientes", msg);
             contexto.getExternalContext().getFlash().setKeepMessages(true);
-            return "/clientes/atualizaDadosPessoais";
+            return "/clientes/listagemClientes";
         }
         for (String inconsistencia : inconsistencias) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(inconsistencia));
@@ -68,12 +67,15 @@ public class ClienteBean implements Serializable {
         return "/clientes/atualizaDadosPessoais";
 
     }
-     
-     public void consultar() {
+
+    public void consultar() {
         this.clientes = controller.consultar(sqlFiltro, limiteRegistros);
+        if (!clientes.isEmpty()) {
+            this.cliente = clientes.get(0);
+        }
     }
-     
-     public void prepararAtualizacaoEgresso(Cliente cliente) {
+
+    public void prepararAtualizacaoEgresso(Cliente cliente) {
         this.cliente = cliente;
     }
 
