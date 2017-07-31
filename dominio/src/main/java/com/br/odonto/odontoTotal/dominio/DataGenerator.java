@@ -18,11 +18,35 @@ public class DataGenerator {
     public static Cliente constroi(EntityManager em) {
      
         Cliente cliente = new Cliente();
+        Convenio convenio =  new Convenio();
+        
+        convenio.setNome("Particular");
+        convenio.setRegistroAns("123");
+        
+       em.persist(convenio);
+       
+       convenio =  new Convenio();
+        
+        convenio.setNome("Uniodonto Goiânia");
+        convenio.setRegistroAns("358436");
+        
+        em.persist(convenio);
+        
         cliente.setNome("Cliente Teste");
         cliente.setCPF("673.780.581-73");
         cliente.setEndereco("Rua 1 numero 1 quadra 1 lote 1 Setor Teste CEP 74000-000");
         cliente.setDataNascimento(LocalDate.now());
         cliente.setTelefone("62 98444-7430");
+        cliente.setRg("123456");
+        cliente.setCEP("74000-000");
+        cliente.setCidade("Goiânia");
+        cliente.setEstado("Goiás");
+        cliente.setProfissao("Estudante");
+        cliente.setResponsavel("Maria");
+        cliente.setConvenio(convenio);
+        cliente.setPlano("básico");
+        
+        
         em.persist(cliente);
 
         return cliente;

@@ -6,7 +6,9 @@
 package com.br.odonto.visao.beans;
 
 import com.br.odonto.odontoTotal.controller.ClienteController;
+import com.br.odonto.odontoTotal.controller.ConvenioController;
 import com.br.odonto.odontoTotal.dominio.Cliente;
+import com.br.odonto.odontoTotal.dominio.Convenio;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
@@ -40,6 +42,10 @@ public class ClienteBean implements Serializable {
     private List<Cliente> clientes;
     
     private String idade;
+    
+    private Convenio convenio;
+    
+    private List<Convenio> convenios;
 
     public ClienteBean() {
         cliente = new Cliente();
@@ -54,6 +60,7 @@ public class ClienteBean implements Serializable {
     @PostConstruct
     public void init() {
         consultar();
+        consultarConvenios();
     }
 
     public String atualizar() {
@@ -65,9 +72,9 @@ public class ClienteBean implements Serializable {
             contexto.getExternalContext().getFlash().setKeepMessages(true);
             return "/clientes/listagemClientes";
         }
-        for (String inconsistencia : inconsistencias) {
+        inconsistencias.forEach((inconsistencia) -> {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(inconsistencia));
-        }
+        });
         return "/clientes/atualizaDadosPessoais";
 
     }
@@ -77,6 +84,11 @@ public class ClienteBean implements Serializable {
         if (!clientes.isEmpty()) {
             this.cliente = clientes.get(0);
         }
+    }
+    
+    public void consultarConvenios(){
+        ConvenioController con = new ConvenioController();
+        convenios = con.consultar();
     }
     
     public void calculaIdade(){
@@ -136,6 +148,22 @@ public class ClienteBean implements Serializable {
 
     public void setIdade(String idade) {
         this.idade = idade;
+    }
+
+    public Convenio getConvenio() {
+        return convenio;
+    }
+
+    public void setConvenio(Convenio convenio) {
+        this.convenio = convenio;
+    }
+
+    public List<Convenio> getConvenios() {
+        return convenios;
+    }
+
+    public void setConvenios(List<Convenio> convenios) {
+        this.convenios = convenios;
     }
 
     

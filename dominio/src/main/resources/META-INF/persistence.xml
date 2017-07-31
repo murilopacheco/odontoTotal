@@ -3,6 +3,7 @@
   <persistence-unit name="odontoAtualPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <class>com.br.odonto.dominio.odontoTotal.dominio.Cliente</class>
+    <class>com.br.odonto.dominio.odontoTotal.dominio.Convenio</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/odontoAtual"/>
       <property name="javax.persistence.jdbc.user" value="odontoAtual"/>
@@ -13,7 +14,6 @@
       <property name="connection.autoReconnect" value="true"/>
       <property name="connection.autoReconnectForPools" value="true"/>
       <property name="connection.is-connection-validation-required" value="true"/>
-      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>

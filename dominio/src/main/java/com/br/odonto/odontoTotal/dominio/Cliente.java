@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -27,9 +28,18 @@ public class Cliente extends ValidadorGenerico implements Serializable{
     private Long id;
     private String nome;
     private String CPF;
+    private String rg;
     private String endereco;
     private LocalDate dataNascimento;
     private String telefone;
+    private String profissao;
+    private String CEP;
+    private String Cidade;
+    private String Estado;
+    @OneToOne
+    private Convenio convenio;
+    private String responsavel;
+    private String plano;
 
     public Long getId() {
         return id;
@@ -55,6 +65,14 @@ public class Cliente extends ValidadorGenerico implements Serializable{
         this.CPF = CPF;
     }
 
+    public String getRg() {
+        return rg;
+    }
+
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
+
     public String getEndereco() {
         return endereco;
     }
@@ -78,6 +96,64 @@ public class Cliente extends ValidadorGenerico implements Serializable{
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
+
+    public String getProfissao() {
+        return profissao;
+    }
+
+    public void setProfissao(String profissao) {
+        this.profissao = profissao;
+    }
+
+    public String getCEP() {
+        return CEP;
+    }
+
+    public void setCEP(String CEP) {
+        this.CEP = CEP;
+    }
+
+    public String getCidade() {
+        return Cidade;
+    }
+
+    public void setCidade(String Cidade) {
+        this.Cidade = Cidade;
+    }
+
+    public String getEstado() {
+        return Estado;
+    }
+
+    public void setEstado(String Estado) {
+        this.Estado = Estado;
+    }
+
+    public String getResponsavel() {
+        return responsavel;
+    }
+
+    public void setResponsavel(String responsavel) {
+        this.responsavel = responsavel;
+    }
+
+    public Convenio getConvenio() {
+        return convenio;
+    }
+
+    public void setConvenio(Convenio convenio) {
+        this.convenio = convenio;
+    }
+
+    public String getPlano() {
+        return plano;
+    }
+
+    public void setPlano(String plano) {
+        this.plano = plano;
+    }
+
+    
 
      @Override
     public List<String> validar() {

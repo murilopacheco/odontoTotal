@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -20,19 +21,39 @@
                         <p:inputText id="txtNome" value="#{clienteBean.cliente.nome}"/>
                         <p:outputLabel value="CPF:" for="txtCPF"/>
                         <p:inputMask id="txtCPF" value="#{clienteBean.cliente.CPF}"
-                                     mask="999.999.999-99"/> 
+                                     mask="999.999.999-99"/>
+                        <p:outputLabel value="RG:" for="txtRg"/>
+                        <p:inputText id="txtRg" value="#{clienteBean.cliente.rg}"/>
                         <p:outputLabel value="Data de Nascimento:"/>
                         <p:calendar showOn="button" id="txtNascimento"  
                                     value="#{clienteBean.cliente.dataNascimento}" 
                                     pattern="dd/mm/yyyy" 
                                     converter="jsfLocalDateConverter"
-                                    onchange="#{clienteBean.calculaIdade()}"/>
+                                    />
                         <p:outputLabel value="Idade:" for="txtIdade"/>
-                        <p:inputText id="txtIdade" value="#{clienteBean.idade}"/>
+                        <p:inputText id="txtIdade" value="#{clienteBean.idade}" disabled="true"/>
                         <p:outputLabel value="Endereço:" for="txtEndereco"/>
                         <p:inputText id="txtEndereco" value="#{clienteBean.cliente.endereco}"/>
+                        <p:outputLabel value="Cidade:" for="txtCidade"/>
+                        <p:inputText id="txtCidade" value="#{clienteBean.cliente.cidade}"/>
+                        <p:outputLabel value="Estado:" for="txtEstado"/>
+                        <p:inputText id="txtEstado" value="#{clienteBean.cliente.estado}"/>
+                        <p:outputLabel value="CEP" for="txtCep"/>
+                        <p:inputText id="txtCep" value="#{clienteBean.cliente.CEP}"/>
+                        
                         <p:outputLabel value="Telefone:" for="txtTelefone"/>
                         <p:inputText id="txtTelefone" value="#{clienteBean.cliente.telefone}"/>
+                        <p:outputLabel value="Responsável:" for="txtResponsavel"/>
+                        <p:inputText id="txtResponsavel" value="#{clienteBean.cliente.responsavel}"/>
+                        <p:outputLabel value="Convênio" for="lstConvenio"/>
+                        <p:selectOneListbox id="lstConvenio" value="#{clienteBean.convenios}"  var="c" filter="true" filterMatchMode="contains">
+                            <f:selectItems value="#{clienteBean.convenios}" var="con" itemLabel="#{con.nome}" itemValue="#{con}" />
+
+                            <p:column>
+                                <h:outputText value="#{con.nome}"/>
+                            </p:column>
+
+                        </p:selectOneListbox>
                     </p:panelGrid>
                 </form>
                 
