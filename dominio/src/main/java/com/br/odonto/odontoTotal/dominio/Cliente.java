@@ -29,6 +29,7 @@ public class Cliente extends ValidadorGenerico implements Serializable{
     private String CPF;
     private String endereco;
     private LocalDate dataNascimento;
+    private String telefone;
 
     public Long getId() {
         return id;
@@ -68,6 +69,14 @@ public class Cliente extends ValidadorGenerico implements Serializable{
 
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
      @Override

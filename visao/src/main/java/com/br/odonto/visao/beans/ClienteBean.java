@@ -8,6 +8,8 @@ package com.br.odonto.visao.beans;
 import com.br.odonto.odontoTotal.controller.ClienteController;
 import com.br.odonto.odontoTotal.dominio.Cliente;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -36,9 +38,11 @@ public class ClienteBean implements Serializable {
     private Cliente cliente;
 
     private List<Cliente> clientes;
+    
+    private String idade;
 
     public ClienteBean() {
-
+        cliente = new Cliente();
         controller = new ClienteController();
         StringBuilder sb = new StringBuilder();
         sb.append("select c.* ").
@@ -73,6 +77,13 @@ public class ClienteBean implements Serializable {
         if (!clientes.isEmpty()) {
             this.cliente = clientes.get(0);
         }
+    }
+    
+    public void calculaIdade(){
+        LocalDate data = LocalDate.now();
+        final LocalDate dataAtual = LocalDate.now();
+        final Period periodo = Period.between(cliente.getDataNascimento(), dataAtual);
+        idade = String.valueOf(periodo.getYears());
     }
 
     public void prepararAtualizacaoEgresso(Cliente cliente) {
@@ -119,4 +130,13 @@ public class ClienteBean implements Serializable {
         this.clientes = clientes;
     }
 
+    public String getIdade() {
+        return idade;
+    }
+
+    public void setIdade(String idade) {
+        this.idade = idade;
+    }
+
+    
 }

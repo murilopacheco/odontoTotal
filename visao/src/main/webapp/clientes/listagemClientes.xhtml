@@ -20,12 +20,19 @@
                         <p:inputText id="txtNome" value="#{clienteBean.cliente.nome}"/>
                         <p:outputLabel value="CPF:" for="txtCPF"/>
                         <p:inputMask id="txtCPF" value="#{clienteBean.cliente.CPF}"
-                                     mask="999.999.999-99"/>
-                        <p:outputLabel value="Endereço:"/>
-                        <p:inputText id="txtEndereco" value="#{clienteBean.cliente.endereco}"/>
+                                     mask="999.999.999-99"/> 
                         <p:outputLabel value="Data de Nascimento:"/>
                         <p:calendar showOn="button" id="txtNascimento"  
-                                    value="#{clienteBean.cliente.dataNascimento}" pattern="dd/mm/yyyy" converter="jsfLocalDateConverter"/>
+                                    value="#{clienteBean.cliente.dataNascimento}" 
+                                    pattern="dd/mm/yyyy" 
+                                    converter="jsfLocalDateConverter"
+                                    onchange="#{clienteBean.calculaIdade()}"/>
+                        <p:outputLabel value="Idade:" for="txtIdade"/>
+                        <p:inputText id="txtIdade" value="#{clienteBean.idade}"/>
+                        <p:outputLabel value="Endereço:" for="txtEndereco"/>
+                        <p:inputText id="txtEndereco" value="#{clienteBean.cliente.endereco}"/>
+                        <p:outputLabel value="Telefone:" for="txtTelefone"/>
+                        <p:inputText id="txtTelefone" value="#{clienteBean.cliente.telefone}"/>
                     </p:panelGrid>
                 </form>
                 

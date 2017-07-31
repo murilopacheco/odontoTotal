@@ -13,6 +13,7 @@
       <property name="connection.autoReconnect" value="true"/>
       <property name="connection.autoReconnectForPools" value="true"/>
       <property name="connection.is-connection-validation-required" value="true"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>
