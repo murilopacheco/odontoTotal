@@ -1,8 +1,5 @@
 package com.br.odonto.odontoTotal.controller;
 
-
-
-
 import com.br.odonto.odontoTotal.dao.ConvenioDao;
 import com.br.odonto.odontoTotal.dominio.Convenio;
 import java.util.List;
@@ -30,4 +27,15 @@ public class ConvenioController {
         }
         return inconsistencias;
     }
+
+    public Convenio buscar(Long id) {
+        Convenio convenio;
+        convenio = new Convenio();
+        convenio = dao.buscar(id);
+        return convenio;
+    }
+    
+    public List<Convenio> buscarPorNome(String nome){
+       return dao.buscarPorNome(nome);
+       }
 }

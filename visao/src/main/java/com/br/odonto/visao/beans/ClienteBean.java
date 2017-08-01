@@ -60,7 +60,7 @@ public class ClienteBean implements Serializable {
     @PostConstruct
     public void init() {
         consultar();
-        consultarConvenios();
+        calculaIdade();
     }
 
     public String atualizar() {
@@ -86,16 +86,20 @@ public class ClienteBean implements Serializable {
         }
     }
     
-    public void consultarConvenios(){
+    public void consultarConvenios(String nome){
         ConvenioController con = new ConvenioController();
-        convenios = con.consultar();
+        convenios = con.buscarPorNome(nome);
     }
     
     public void calculaIdade(){
+        if(cliente != null){
         LocalDate data = LocalDate.now();
         final LocalDate dataAtual = LocalDate.now();
         final Period periodo = Period.between(cliente.getDataNascimento(), dataAtual);
         idade = String.valueOf(periodo.getYears());
+        }else{
+            idade = "";
+        }
     }
 
     public void prepararAtualizacaoEgresso(Cliente cliente) {

@@ -46,14 +46,20 @@
                         <p:outputLabel value="Responsável:" for="txtResponsavel"/>
                         <p:inputText id="txtResponsavel" value="#{clienteBean.cliente.responsavel}"/>
                         <p:outputLabel value="Convênio" for="lstConvenio"/>
-                        <p:selectOneListbox id="lstConvenio" value="#{clienteBean.convenios}"  var="c" filter="true" filterMatchMode="contains">
-                            <f:selectItems value="#{clienteBean.convenios}" var="con" itemLabel="#{con.nome}" itemValue="#{con}" />
+                          <p:autoComplete 
+                            id="lstConvenio"
+                            value="#{clienteBean.convenio}"
+                            converter="ConvenioConverter"
+                            completeMethod="#{clienteBean.consultarConvenios}"
+                            var="con"
+                            itemLabel="#{con.id}, #{con.nome}"
+                            itemValue="#{con}"
+                            dropdown="false"
+                            scrollHeight="100"
+                            queryDelay="500"
+                            effect="fade"
+                            forceSelection="true"/>
 
-                            <p:column>
-                                <h:outputText value="#{con.nome}"/>
-                            </p:column>
-
-                        </p:selectOneListbox>
                     </p:panelGrid>
                 </form>
                 
