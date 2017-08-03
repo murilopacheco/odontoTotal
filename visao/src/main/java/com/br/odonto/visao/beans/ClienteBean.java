@@ -61,6 +61,7 @@ public class ClienteBean implements Serializable {
     public void init() {
         consultar();
         calculaIdade();
+        listarConvenios();
     }
 
     public String atualizar() {
@@ -91,6 +92,11 @@ public class ClienteBean implements Serializable {
         convenios = con.buscarPorNome(nome);
     }
     
+    public void listarConvenios(){
+        ConvenioController con = new ConvenioController();
+        convenios = con.consultar();
+    }
+    
     public void calculaIdade(){
         if(cliente != null){
         LocalDate data = LocalDate.now();
@@ -102,8 +108,12 @@ public class ClienteBean implements Serializable {
         }
     }
 
-    public void prepararAtualizacaoEgresso(Cliente cliente) {
+    public void prepararAtualizacaoCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+    
+    public void novoCliente(){
+        cliente = new Cliente();
     }
 
     public String getSqlFiltro() {

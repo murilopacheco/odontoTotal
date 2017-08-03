@@ -18,7 +18,7 @@ import javax.faces.convert.FacesConverter;
  *
  * @author murilo
  */
-@FacesConverter("ConvenioConverter")
+@FacesConverter("jsfConvenioConverter")
 public class ConvenioConverter implements Converter{
 
     @Override
@@ -28,7 +28,7 @@ public class ConvenioConverter implements Converter{
                 Long id = Long.parseLong(value);
                 ConvenioController con  = new ConvenioController();
                 Convenio c = con.buscar(id);
-                return c;
+                return c.getId();
                         
             } catch(NumberFormatException e) {
                 throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro na conversão", "Não é um convênio válido."));

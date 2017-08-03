@@ -3,8 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -15,7 +15,7 @@
                 <h1>
                     Cadastro de Clientes
                 </h1>
-                <form id="formCadastro">
+                <h:form id="formDadosCliente">
                     <p:panelGrid columns="4" >
                         <p:outputLabel value="Nome:" for="txtNome"/>
                         <p:inputText id="txtNome" value="#{clienteBean.cliente.nome}"/>
@@ -46,22 +46,19 @@
                         <p:outputLabel value="Responsável:" for="txtResponsavel"/>
                         <p:inputText id="txtResponsavel" value="#{clienteBean.cliente.responsavel}"/>
                         <p:outputLabel value="Convênio" for="lstConvenio"/>
-                          <p:autoComplete 
-                            id="lstConvenio"
-                            value="#{clienteBean.convenio}"
-                            converter="ConvenioConverter"
-                            completeMethod="#{clienteBean.consultarConvenios}"
-                            var="con"
-                            itemLabel="#{con.id}, #{con.nome}"
-                            itemValue="#{con}"
-                            dropdown="false"
-                            scrollHeight="100"
-                            queryDelay="500"
-                            effect="fade"
-                            forceSelection="true"/>
+                       <p:selectOneListbox id="lstConvenio" value="#{clienteBean.convenio}" converter="jsfConvenioConverter" var="conv">
+                            <f:selectItems value="#{clienteBean.convenios}" var="con" itemLabel="#{con.nome}" itemValue="#{con}" />
+                            <p:column>
+                                <h:outputText value="#{conv.nome}" />
+                            </p:column>
+                        </p:selectOneListbox>
+                        <p:outputLabel value="Plano" for="txtPlano"/>
+                        <p:inputText id="txtPlano" value="#{clienteBean.cliente.plano}"/>
+                        <p:commandButton id="btnAtualizar" value="Salvar" action="#{clienteBean.atualizar}" update="formLista, formDadosCliente" />
+                        <p:commandButton id="btnNovo" value="Novo" action="#{clienteBean.novoCliente}" update="formDadosCliente" />
 
                     </p:panelGrid>
-                </form>
+                </h:form>
                 
                 
                 <h1>Listagem de Clientes</h1>
@@ -91,9 +88,21 @@
                                   filterMatchMode="startsWith">
                             <h:outputText value="#{c.nome}" />
                         </p:column>
+                        <p:column headerText="CPF" 
+                                  filterBy="#{c.CPF}" 
+                                  sortBy="#{c.CPF}" 
+                                  filterMatchMode="startsWith">
+                            <h:outputText value="#{c.CPF}" />
+                        </p:column>
+                        <p:column headerText="Convenio" 
+                                  filterBy="#{c.convenio.nome}" 
+                                  sortBy="#{c.convenio.nome}" 
+                                  filterMatchMode="startsWith">
+                            <h:outputText value="#{c.convenio.nome}" />
+                        </p:column>
                         <p:column headerText="Ações">
                             <p:button 
-                                onclick="#{clienteBean.prepararAtualizacaoEgresso(c)}" 
+                                onclick="#{clienteBean.prepararAtualizacaoCliente(c)}" 
                                 value="Editar" icon="ui-icon-pencil"/>
                         </p:column>
                     </p:dataTable>
