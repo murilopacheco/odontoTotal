@@ -98,8 +98,7 @@ public class ClienteBean implements Serializable {
     }
     
     public void calculaIdade(){
-        if(cliente != null){
-        LocalDate data = LocalDate.now();
+        if(cliente.getDataNascimento() != null){
         final LocalDate dataAtual = LocalDate.now();
         final Period periodo = Period.between(cliente.getDataNascimento(), dataAtual);
         idade = String.valueOf(periodo.getYears());

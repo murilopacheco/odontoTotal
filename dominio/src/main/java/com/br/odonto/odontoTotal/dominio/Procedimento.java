@@ -13,20 +13,25 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author murilo
  */
 @Entity
-@DiscriminatorValue("CON")
-public class Convenio extends ValidadorGenerico implements Serializable{
+@DiscriminatorValue("PROC")
+public class Procedimento extends ValidadorGenerico implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nome;
-    private String registroAns;
+    private String categoria;
+    private double preco;
+    
+    @ManyToOne
+    private TipoProcedimento tipoProcedimento;
 
     public Long getId() {
         return id;
@@ -44,12 +49,28 @@ public class Convenio extends ValidadorGenerico implements Serializable{
         this.nome = nome;
     }
 
-    public String getRegistroAns() {
-        return registroAns;
+    public String getCategoria() {
+        return categoria;
     }
 
-    public void setRegistroAns(String registroAns) {
-        this.registroAns = registroAns;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+
+    public TipoProcedimento getTipoProcedimento() {
+        return tipoProcedimento;
+    }
+
+    public void setTipoProcedimento(TipoProcedimento tipoProcedimento) {
+        this.tipoProcedimento = tipoProcedimento;
     }
     
     
@@ -70,9 +91,9 @@ public class Convenio extends ValidadorGenerico implements Serializable{
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Convenio))
+		if (!(obj instanceof Procedimento))
 			return false;
-		Convenio other = (Convenio) obj;
+		Procedimento other = (Procedimento) obj;
 		if (nome == null){
 			if (other.nome != null)
 				return false;

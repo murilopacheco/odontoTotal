@@ -40,6 +40,7 @@ public class Cliente extends ValidadorGenerico implements Serializable{
     private Convenio convenio;
     private String responsavel;
     private String plano;
+    private String numeroCartao;
 
     public Long getId() {
         return id;
@@ -151,6 +152,14 @@ public class Cliente extends ValidadorGenerico implements Serializable{
 
     public void setPlano(String plano) {
         this.plano = plano;
+    }
+
+    public String getNumeroCartao() {
+        return numeroCartao;
+    }
+
+    public void setNumeroCartao(String numeroCartao) {
+        this.numeroCartao = numeroCartao;
     }
 
     

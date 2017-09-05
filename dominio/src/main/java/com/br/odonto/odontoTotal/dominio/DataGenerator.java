@@ -3,7 +3,6 @@ package com.br.odonto.odontoTotal.dominio;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.Month;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
@@ -31,6 +30,19 @@ public class DataGenerator {
         convenio.setRegistroAns("358436");
         
         em.persist(convenio);
+        
+        TipoProcedimento tipoProcedimento = new TipoProcedimento();
+        tipoProcedimento.setNome("Ortodontia");
+        
+        em.persist(tipoProcedimento);
+        
+        Procedimento procedimento = new Procedimento();
+        procedimento.setCategoria("Manutenção");
+        procedimento.setNome("Manutenção de aparelho");
+        procedimento.setPreco(25.00);
+        procedimento.setTipoProcedimento(tipoProcedimento);
+        
+        em.persist(procedimento);
         
         cliente.setNome("Cliente Teste");
         cliente.setCPF("673.780.581-73");

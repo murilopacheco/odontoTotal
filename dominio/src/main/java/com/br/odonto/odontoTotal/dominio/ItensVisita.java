@@ -13,20 +13,27 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author murilo
  */
 @Entity
-@DiscriminatorValue("CON")
-public class Convenio extends ValidadorGenerico implements Serializable{
+@DiscriminatorValue("ITENSVISITA")
+public class ItensVisita extends ValidadorGenerico implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String nome;
-    private String registroAns;
+    
+    @ManyToOne
+    private Visita visita;
+    
+    @ManyToOne
+    private Procedimento procedimento;
+    
+    private double valorPago;
 
     public Long getId() {
         return id;
@@ -36,21 +43,30 @@ public class Convenio extends ValidadorGenerico implements Serializable{
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public Visita getVisita() {
+        return visita;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setVisita(Visita visita) {
+        this.visita = visita;
     }
 
-    public String getRegistroAns() {
-        return registroAns;
+    public Procedimento getProcedimento() {
+        return procedimento;
     }
 
-    public void setRegistroAns(String registroAns) {
-        this.registroAns = registroAns;
+    public void setProcedimento(Procedimento procedimento) {
+        this.procedimento = procedimento;
     }
+
+    public double getValorPago() {
+        return valorPago;
+    }
+
+    public void setValorPago(double valorPago) {
+        this.valorPago = valorPago;
+    }
+
     
     
 
@@ -59,26 +75,5 @@ public class Convenio extends ValidadorGenerico implements Serializable{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    @Override
-    public String toString() {
-        return nome;
-    }
-    
-    @Override
-	public boolean equals(Object obj){
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof Convenio))
-			return false;
-		Convenio other = (Convenio) obj;
-		if (nome == null){
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
-		return true;
-	}
     
 }

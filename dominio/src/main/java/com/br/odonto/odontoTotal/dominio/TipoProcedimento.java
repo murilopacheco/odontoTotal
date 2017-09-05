@@ -13,20 +13,23 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author murilo
  */
 @Entity
-@DiscriminatorValue("CON")
-public class Convenio extends ValidadorGenerico implements Serializable{
-    
+@DiscriminatorValue("TIPOPROC")
+public class TipoProcedimento extends ValidadorGenerico implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nome;
-    private String registroAns;
+    
+    @OneToMany(mappedBy = "tipoProcedimento")
+    private List<Procedimento> procedimentos;
 
     public Long getId() {
         return id;
@@ -44,12 +47,12 @@ public class Convenio extends ValidadorGenerico implements Serializable{
         this.nome = nome;
     }
 
-    public String getRegistroAns() {
-        return registroAns;
+    public List<Procedimento> getProcedimentos() {
+        return procedimentos;
     }
 
-    public void setRegistroAns(String registroAns) {
-        this.registroAns = registroAns;
+    public void setProcedimentos(List<Procedimento> procedimentos) {
+        this.procedimentos = procedimentos;
     }
     
     
@@ -58,27 +61,32 @@ public class Convenio extends ValidadorGenerico implements Serializable{
     public List<String> validar() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public String toString() {
         return nome;
     }
-    
+
     @Override
-	public boolean equals(Object obj){
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof Convenio))
-			return false;
-		Convenio other = (Convenio) obj;
-		if (nome == null){
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
-		return true;
-	}
-    
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof TipoProcedimento)) {
+            return false;
+        }
+        TipoProcedimento other = (TipoProcedimento) obj;
+        if (nome == null) {
+            if (other.nome != null) {
+                return false;
+            }
+        } else if (!nome.equals(other.nome)) {
+            return false;
+        }
+        return true;
+    }
+
 }
