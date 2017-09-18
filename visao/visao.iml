@@ -24,8 +24,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="controller" />
     <orderEntry type="module" module-name="dominio" />
-    <orderEntry type="module" module-name="controller" />
-    <orderEntry type="module" module-name="dominio" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-jpamodelgen:5.2.10.Final" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.logging:jboss-logging:3.3.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-entitymanager:4.3.1.Final" level="project" />
@@ -51,6 +49,5 @@
     <orderEntry type="library" name="Maven: javax.interceptor:javax.interceptor-api:1.2" level="project" />
     <orderEntry type="library" name="Maven: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" name="Maven: org.primefaces:primefaces:6.1" level="project" />
-    <orderEntry type="library" name="PrimeFaces-5.2" level="project" />
   </component>
 </module>

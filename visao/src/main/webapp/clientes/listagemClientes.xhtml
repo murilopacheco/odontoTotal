@@ -16,6 +16,7 @@
                     Cadastro de Clientes
                 </h1>
                 <h:form id="formDadosCliente">
+                    <p:growl id="growl"/>
                     <p:panelGrid columns="4" >
                         <p:outputLabel value="Nome:" for="txtNome"/>
                         <p:inputText id="txtNome" value="#{clienteBean.cliente.nome}"/>
@@ -60,7 +61,7 @@
                         </p:selectOneListbox>
                         <p:outputLabel value="Plano" for="txtPlano"/>
                         <p:inputText id="txtPlano" value="#{clienteBean.cliente.plano}"/>
-                        <p:commandButton id="btnAtualizar" value="Salvar" action="#{clienteBean.atualizar}" update="formLista, formDadosCliente" />
+                        <p:commandButton id="btnAtualizar" value="Salvar" action="#{clienteBean.atualizar}" update="formLista, formDadosCliente, growl" />
                         <p:commandButton id="btnNovo" value="Novo" action="#{clienteBean.novoCliente}" update="formDadosCliente" />
 
                     </p:panelGrid>
