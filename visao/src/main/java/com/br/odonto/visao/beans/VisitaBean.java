@@ -55,12 +55,13 @@ public class VisitaBean implements Serializable{
 
     public void adicionaProcedimento(SelectEvent event) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Item Selected", event.getObject().toString()));
-        Procedimento procedimento = new Procedimento();
-        procedimento = (Procedimento) event.getObject();
+        Procedimento pro = new Procedimento();
+        pro = (Procedimento) event.getObject();
         if(procedimentos == null){
             procedimentos = new ArrayList<Procedimento>();
         }
-        procedimentos.add(procedimento);
+        procedimentos.add(pro);
+        this.procedimento = new Procedimento();
     }
 
     public ClienteBean getClienteBean() {

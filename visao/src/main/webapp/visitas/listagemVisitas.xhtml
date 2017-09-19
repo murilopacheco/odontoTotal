@@ -41,7 +41,7 @@
                                 queryDelay="500"
                                 effect="fade"
                                 forceSelection="true">
-                        <p:ajax event="itemSelect" listener="#{visitaBean.adicionaProcedimento}" update="msgs , tabela_procedimentos" />
+                        <p:ajax event="itemSelect" listener="#{visitaBean.adicionaProcedimento}" update="msgs , tabela_procedimentos, compProcedimento" />
                         </p:autoComplete>
 
                         <p:dataTable id="tabela_procedimentos"
@@ -63,6 +63,10 @@
                             <p:column headerText="Id" filterBy="#{p.nome}"
                                       sortBy="#{p.nome}" filterMatchMode="contains">
                                 <h:outputText value="#{p.nome}" />
+                            </p:column>
+                            <p:column headerText="Id" filterBy="#{p.preco}"
+                                      sortBy="#{p.preco}" filterMatchMode="contains">
+                                <h:outputText value="#{p.preco}" />
                             </p:column>
                         </p:dataTable>
 
