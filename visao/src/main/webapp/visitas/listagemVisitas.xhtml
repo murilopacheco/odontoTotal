@@ -16,6 +16,7 @@
                     Cadastro de Visitas
                 </h1>
                 <h:form id="formVisita">
+                    <p:growl id="msgs" showDetail="true" />
                     <p:panelGrid columns="2" >
                         <p:outputLabel value="Nome Paciente:" for="txtNome"/>
                         <p:inputText id="txtNome" value="#{visitaBean.clienteBean.cliente.nome}"/>
@@ -25,7 +26,45 @@
                                     pattern="dd/mm/yyyy" 
                                     converter="jsfLocalDateConverter"
                                     disabled="true"
-                                    />
+                        />
+                        <p:outputLabel value="Procedimento" for="compProcedimento"/>
+                        <p:autoComplete
+                                id="compProcedimento"
+                                value="#{visitaBean.procedimento}"
+                                converter="jsfProcedimentoConverter"
+                                completeMethod="#{visitaBean.listaProcedimentos}"
+                                var="pro"
+                                itemLabel="#{pro.nome}, #{pro.id}"
+                                itemValue="#{pro}"
+                                dropdown="false"
+                                scrollHeight="100"
+                                queryDelay="500"
+                                effect="fade"
+                                forceSelection="true">
+                        <p:ajax event="itemSelect" listener="#{visitaBean.adicionaProcedimento}" update="msgs , tabela_procedimentos" />
+                        </p:autoComplete>
+
+                        <p:dataTable id="tabela_procedimentos"
+                                     var="p"
+                                     value="#{visitaBean.procedimentos}"
+                                     rows="10"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                 {PreviousPageLink} {PageLinks} {NextPageLink}
+                                 {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="10,20,50,100,1000"
+                                     sortBy="#{p.nome}"
+                                     rowKey="#{v.id}"
+                                     emptyMessage="Nenhum procedimento adicionado" >
+                            <p:column headerText="Id" filterBy="#{p.id}"
+                                      sortBy="#{p.id}" filterMatchMode="exact">
+                                <h:outputText value="#{p.id}" />
+                            </p:column>
+                            <p:column headerText="Id" filterBy="#{p.nome}"
+                                      sortBy="#{p.nome}" filterMatchMode="contains">
+                                <h:outputText value="#{p.nome}" />
+                            </p:column>
+                        </p:dataTable>
 
                         
                         <p:commandButton id="btnAtualizar" value="Salvar" action="#{visitaBean.clientebean.salvar}"  />
@@ -38,8 +77,41 @@
                 <h1>Listagem de Visitas</h1>
 
                 <h:form id="formLista">
-
-
+                    <p:dataTable id="tabela_Visitas"
+                                 var="v"
+                                 value="#{visitaBean.visitas}"
+                                 rows="10"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                 {PreviousPageLink} {PageLinks} {NextPageLink}
+                                 {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="10,20,50,100,1000"
+                                 selectionMode="single"
+                                 sortBy="#{v.dataVisita}"
+                                 rowKey="#{v.id}"
+                                 emptyMessage="Nenhuma visita encontrada" >
+                        <p:column headerText="Id" filterBy="#{v.id}"
+                                  sortBy="#{v.id}" filterMatchMode="exact">
+                            <h:outputText value="#{v.id}" />
+                        </p:column>
+                        <p:column headerText="Data"
+                                  filterBy="#{c.dataVisita}"
+                                  sortBy="#{c.dataVisita}"
+                                  filterMatchMode="exact">
+                            <h:outputText value="#{c.dataVisita}" />
+                        </p:column>
+                        <p:column headerText="Convenio"
+                                  filterBy="#{v.cliente.convenio.nome}"
+                                  sortBy="#{v.cliente.convenio.nome}"
+                                  filterMatchMode="startsWith">
+                            <h:outputText value="#{v.cliente.convenio.nome}" />
+                        </p:column>
+                        <p:column headerText="Ações">
+                            <p:button
+                                    onclick="#{visitaBean.visualizarDetalhesVisita(v)}"
+                                    value="Detalhes" icon="ui-icon-info"/>
+                        </p:column>
+                    </p:dataTable>
                 </h:form>
 
             </ui:define>
