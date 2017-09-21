@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  *
- * @author Danillo
+ * @author Murilo
  */
 public class ClienteDao extends GenericDao<Cliente> implements IEntityDao<Cliente> {
 

@@ -6,6 +6,7 @@
 package com.br.odonto.visao.beans;
 
 import com.br.odonto.odontoTotal.controller.ProcedimentoController;
+import com.br.odonto.odontoTotal.controller.VisitaController;
 import com.br.odonto.odontoTotal.dominio.Procedimento;
 import com.br.odonto.odontoTotal.dominio.Visita;
 import java.io.Serializable;
@@ -34,6 +35,7 @@ public class VisitaBean implements Serializable{
     private List<Visita> visitas;
     private Procedimento procedimento;
     private List<Procedimento> procedimentos = new ArrayList<>();
+    VisitaController controller = new VisitaController();
 
 
     @PostConstruct
@@ -62,6 +64,18 @@ public class VisitaBean implements Serializable{
         }
         procedimentos.add(pro);
         this.procedimento = new Procedimento();
+    }
+
+    public void removeProcedimentoVisita(Procedimento p){
+        procedimentos.remove(p);
+
+    }
+
+    public String salvarVisita(){
+        if(procedimentos==null)
+        this.visita.setProcedimentos(procedimentos);
+        List<String> inconsistencias = controller.atualizar(visita);
+        return "/clientes/listagemVisitas";
     }
 
     public ClienteBean getClienteBean() {

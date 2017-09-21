@@ -22,7 +22,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="dominio" />
     <orderEntry type="module" module-name="controller" />
     <orderEntry type="module" module-name="dominio" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-jpamodelgen:5.2.10.Final" level="project" />
