@@ -7,11 +7,13 @@ package com.br.odonto.visao.beans;
 
 import com.br.odonto.odontoTotal.controller.ProcedimentoController;
 import com.br.odonto.odontoTotal.controller.VisitaController;
+import com.br.odonto.odontoTotal.dominio.ItensVisita;
 import com.br.odonto.odontoTotal.dominio.Procedimento;
 import com.br.odonto.odontoTotal.dominio.Visita;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -34,7 +36,9 @@ public class VisitaBean implements Serializable{
     private Visita visita = new Visita();
     private List<Visita> visitas;
     private Procedimento procedimento;
+    private List<ItensVisita> itens = new ArrayList<ItensVisita>();
     private List<Procedimento> procedimentos = new ArrayList<>();
+    private List<Procedimento> procedimentosSelecionados = new ArrayList<Procedimento>();
     VisitaController controller = new VisitaController();
 
 
@@ -43,10 +47,18 @@ public class VisitaBean implements Serializable{
 
         visita.setDataVisita(LocalDate.now());
         procedimentos = new ArrayList<Procedimento>();
+        consultar();
     }
 
     public void visualizarDetalhesVisita(Visita v){
-        //To-Do metodo de detalhes visita.
+        this.visita = v;
+        if(v != null){
+        for (int i = 0; i < v.getItens().size(); i++) {
+            Procedimento p = new Procedimento();
+            p.setPreco(v.getItens().get(i).getValorPago());
+            procedimentos.add(p);
+            }
+        }
     }
 
     public List<Procedimento> listaProcedimentos(String procedimento){
@@ -66,16 +78,39 @@ public class VisitaBean implements Serializable{
         this.procedimento = new Procedimento();
     }
 
-    public void removeProcedimentoVisita(Procedimento p){
-        procedimentos.remove(p);
+    public void removeProcedimento(){
+        this.procedimentos.removeAll(this.procedimentosSelecionados);
+    }
 
+    public void consultar() {
+        String sqlFiltro = "";
+        int limiteRegistros = 0;
+        this.visitas = controller.consultar(sqlFiltro, limiteRegistros);
+        if (!visitas.isEmpty()) {
+            this.visita = visitas.get(0);
+        }
     }
 
     public String salvarVisita(){
-        if(procedimentos==null)
-        this.visita.setProcedimentos(procedimentos);
-        List<String> inconsistencias = controller.atualizar(visita);
-        return "/clientes/listagemVisitas";
+        if(procedimentos != null) {
+            visita.setCliente(clienteBean.getCliente());
+            itens = new ArrayList<ItensVisita>();
+            for (Iterator<Procedimento> iter = procedimentos.iterator(); iter.hasNext(); ) {
+                Procedimento procedimento = iter.next();
+                ItensVisita itensVisita = new ItensVisita();
+                itensVisita.setProcedimento(procedimento);
+                itensVisita.setVisita(visita);
+                itensVisita.setValorPago(procedimento.getPreco());
+                itens.add(itensVisita);
+            }
+
+            visita.setItens(itens);
+            List<String> inconsistencias = controller.atualizar(visita);
+            return "/clientes/listagemVisitas";
+        }else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Visita não salva falta adicionar procedimentos"));
+            return"/clientes/listagemVisitas";
+        }
     }
 
     public ClienteBean getClienteBean() {
@@ -116,5 +151,21 @@ public class VisitaBean implements Serializable{
 
     public void setProcedimentos(List<Procedimento> procedimentos) {
         this.procedimentos = procedimentos;
+    }
+
+    public List<Procedimento> getProcedimentosSelecionados() {
+        return procedimentosSelecionados;
+    }
+
+    public void setProcedimentosSelecionados(List<Procedimento> procedimentosSelecionados) {
+        this.procedimentosSelecionados = procedimentosSelecionados;
+    }
+
+    public List<ItensVisita> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItensVisita> itens) {
+        this.itens = itens;
     }
 }

@@ -82,7 +82,6 @@
                                  {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="10,20,50,100,1000"
                                  selectionMode="single"
-                                 sortBy="#{c.nome}"
                                  rowKey="#{c.id}"
                                  emptyMessage="Nenhum cliente encontrado" >
                         <p:column headerText="Id" filterBy="#{c.id}" 
@@ -108,9 +107,9 @@
                             <h:outputText value="#{c.convenio.nome}" />
                         </p:column>
                         <p:column headerText="Ações">
-                            <p:button 
-                                onclick="#{clienteBean.prepararAtualizacaoCliente(c)}" 
-                                value="Editar" icon="ui-icon-pencil"/>
+                            <p:button
+                                onclick="#{clienteBean.prepararAtualizacaoCliente(c)}"
+                                title="Editar" icon="ui-icon-pencil"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>

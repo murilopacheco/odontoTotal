@@ -31,17 +31,29 @@ public class DataGenerator {
         
         em.persist(convenio);
         
-        TipoProcedimento tipoProcedimento = new TipoProcedimento();
-        tipoProcedimento.setNome("Ortodontia");
+        TipoProcedimento tipoProcedimento1 = new TipoProcedimento();
+        tipoProcedimento1.setNome("Ortodontia");
         
-        em.persist(tipoProcedimento);
+        em.persist(tipoProcedimento1);
+        TipoProcedimento tipoProcedimento2 = new TipoProcedimento();
+        tipoProcedimento2.setNome("Endodontia");
+
+        em.persist(tipoProcedimento2);
         
         Procedimento procedimento = new Procedimento();
         procedimento.setCategoria("Manutenção");
         procedimento.setNome("Manutenção de aparelho");
         procedimento.setPreco(25.00);
-        procedimento.setTipoProcedimento(tipoProcedimento);
+        procedimento.setTipoProcedimento(tipoProcedimento1);
         
+        em.persist(procedimento);
+
+        procedimento = new Procedimento();
+        procedimento.setCategoria("Endodontia");
+        procedimento.setNome("Canal");
+        procedimento.setPreco(55.00);
+        procedimento.setTipoProcedimento(tipoProcedimento2);
+
         em.persist(procedimento);
         
         cliente.setNome("Cliente Teste");

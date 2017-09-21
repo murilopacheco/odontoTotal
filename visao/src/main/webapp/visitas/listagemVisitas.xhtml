@@ -41,56 +41,44 @@
                                 queryDelay="500"
                                 effect="fade"
                                 forceSelection="true">
-                        <p:ajax event="itemSelect" listener="#{visitaBean.adicionaProcedimento}" update="msgs , tabela_procedimentos, compProcedimento" />
+                        <p:ajax event="itemSelect" listener="#{visitaBean.adicionaProcedimento}" update="msgs , formProcedimentos, compProcedimento" />
                         </p:autoComplete>
 
-                        <p:commandButton id="btnAtualizar" value="Salvar" action="#{visitaBean.salvarVisita}"  />
+                        <p:commandButton id="btnAtualizar" value="Salvar" action="#{visitaBean.salvarVisita}"  update="formLista" />
                         <p:commandButton id="btnNovo" value="Novo" action="#{clienteBean.novoCliente}"  />
 
                     </p:panelGrid>
                 </h:form>
                 <h:form id="formProcedimentos">
                     <p:panel header="Procedimentos da visita" id="painelProcedimentos" style="margin-bottom:20px">
-                        <p:dataTable id="tabela_procedimentos"
-                                     var="p"
-                                     value="#{visitaBean.procedimentos}"
-                                     rows="10"
-                                     paginator="true"
-                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink}
-                                 {PreviousPageLink} {PageLinks} {NextPageLink}
-                                 {LastPageLink} {RowsPerPageDropdown}"
-                                     rowsPerPageTemplate="10,20,50,100,1000"
-                                     sortBy="#{p.nome}"
-                                     rowKey="#{v.id}"
-                                     emptyMessage="Nenhum procedimento adicionado" >
-                            <p:column headerText="ID" filterBy="#{p.id}"
-                                      sortBy="#{p.id}" filterMatchMode="exact">
+                        <p:dataTable id="lista_procedimentos" var="p" value="#{visitaBean.procedimentos}" selection="#{visitaBean.procedimentosSelecionados}" rowKey="#{p.id}" style="margin-bottom:0">
+                            <f:facet name="header">
+                                Procedimentos
+                            </f:facet>
+                            <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                            <p:column headerText="Id">
                                 <h:outputText value="#{p.id}" />
                             </p:column>
-                            <p:column headerText="PROCEDIMENTO" filterBy="#{p.nome}"
-                                      sortBy="#{p.nome}" filterMatchMode="contains">
+                            <p:column headerText="nome">
                                 <h:outputText value="#{p.nome}" />
                             </p:column>
-                            <p:column headerText="PREÇO" filterBy="#{p.preco}"
-                                      sortBy="#{p.preco}" filterMatchMode="contains">
+                            <p:column headerText="Preço">
                                 <h:outputText value="#{p.preco}" />
                             </p:column>
-                            <p:column headerText="AÇÕES">
-                                <p:button
-                                        onclick="#{visitaBean.removeProcedimentoVisita(p)}"
-                                        value="Excluir" icon="ui-icon-trash"/>
-                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton process="lista_procedimentos" update="lista_procedimentos" icon="ui-icon-trash" value="Excluir" onclick="#{visitaBean.removeProcedimento()}" />
+                            </f:facet>
                         </p:dataTable>
 
                     </p:panel>
                 </h:form>
-                
-                
+
+
                 <h1>Listagem de Visitas</h1>
 
                 <h:form id="formLista">
                     <p:dataTable id="tabela_Visitas"
-                                 var="v"
+                                 var="vis"
                                  value="#{visitaBean.visitas}"
                                  rows="10"
                                  paginator="true"
@@ -98,30 +86,35 @@
                                  {PreviousPageLink} {PageLinks} {NextPageLink}
                                  {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="10,20,50,100,1000"
-                                 selectionMode="single"
-                                 sortBy="#{v.dataVisita}"
+                                 sortBy="#{vis.dataVisita}"
                                  rowKey="#{v.id}"
                                  emptyMessage="Nenhuma visita encontrada" >
                         <p:column headerText="Id" filterBy="#{v.id}"
-                                  sortBy="#{v.id}" filterMatchMode="exact">
-                            <h:outputText value="#{v.id}" />
+                                  sortBy="#{vis.id}" filterMatchMode="exact">
+                            <h:outputText value="#{vis.id}" />
                         </p:column>
                         <p:column headerText="Data"
-                                  filterBy="#{c.dataVisita}"
-                                  sortBy="#{c.dataVisita}"
+                                  filterBy="#{vis.dataVisita}"
+                                  sortBy="#{vis.dataVisita}"
                                   filterMatchMode="exact">
-                            <h:outputText value="#{c.dataVisita}" />
+                            <h:outputText value="#{v.dataVisita}" />
+                        </p:column>
+                        <p:column headerText="Cliente"
+                                  filterBy="#{vis.cliente.nome}"
+                                  sortBy="#{vis.cliente.nome}"
+                                  filterMatchMode="startsWith">
+                            <h:outputText value="#{vis.cliente.nome}" />
                         </p:column>
                         <p:column headerText="Convenio"
-                                  filterBy="#{v.cliente.convenio.nome}"
-                                  sortBy="#{v.cliente.convenio.nome}"
+                                  filterBy="#{vis.cliente.convenio.nome}"
+                                  sortBy="#{vis.cliente.convenio.nome}"
                                   filterMatchMode="startsWith">
-                            <h:outputText value="#{v.cliente.convenio.nome}" />
+                            <h:outputText value="#{vis.cliente.convenio.nome}" />
                         </p:column>
                         <p:column headerText="Ações">
                             <p:button
-                                    onclick="#{visitaBean.visualizarDetalhesVisita(v)}"
-                                    value="Detalhes" icon="ui-icon-info"/>
+                                    onclick="#{visitaBean.visualizarDetalhesVisita(vis)}"
+                                    update="lista_procedimentos,formVisita" value="Detalhes" icon="ui-icon-info" />
                         </p:column>
                     </p:dataTable>
                 </h:form>
