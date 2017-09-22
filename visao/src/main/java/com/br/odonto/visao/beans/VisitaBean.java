@@ -106,6 +106,7 @@ public class VisitaBean implements Serializable{
 
             visita.setItens(itens);
             List<String> inconsistencias = controller.atualizar(visita);
+            consultar();
             return "/clientes/listagemVisitas";
         }else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Visita não salva falta adicionar procedimentos"));

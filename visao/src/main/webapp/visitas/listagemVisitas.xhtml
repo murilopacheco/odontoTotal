@@ -44,14 +44,18 @@
                         <p:ajax event="itemSelect" listener="#{visitaBean.adicionaProcedimento}" update="msgs , formProcedimentos, compProcedimento" />
                         </p:autoComplete>
 
-                        <p:commandButton id="btnAtualizar" value="Salvar" action="#{visitaBean.salvarVisita}"  update="formLista" />
+                        <p:commandButton id="btnAtualizar" value="Salvar" action="#{visitaBean.salvarVisita}"  update=":formLista:tabela_Visitas" />
                         <p:commandButton id="btnNovo" value="Novo" action="#{clienteBean.novoCliente}"  />
 
                     </p:panelGrid>
                 </h:form>
                 <h:form id="formProcedimentos">
                     <p:panel header="Procedimentos da visita" id="painelProcedimentos" style="margin-bottom:20px">
-                        <p:dataTable id="lista_procedimentos" var="p" value="#{visitaBean.procedimentos}" selection="#{visitaBean.procedimentosSelecionados}" rowKey="#{p.id}" style="margin-bottom:0">
+                        <p:dataTable id="lista_procedimentos" var="p"
+                                     value="#{visitaBean.procedimentos}"
+                                     selection="#{visitaBean.procedimentosSelecionados}"
+                                     rowKey="#{p.id}"
+                                     style="margin-bottom:0">
                             <f:facet name="header">
                                 Procedimentos
                             </f:facet>
@@ -87,7 +91,7 @@
                                  {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="10,20,50,100,1000"
                                  sortBy="#{vis.dataVisita}"
-                                 rowKey="#{v.id}"
+                                 rowKey="#{vis.id}"
                                  emptyMessage="Nenhuma visita encontrada" >
                         <p:column headerText="Id" filterBy="#{v.id}"
                                   sortBy="#{vis.id}" filterMatchMode="exact">
