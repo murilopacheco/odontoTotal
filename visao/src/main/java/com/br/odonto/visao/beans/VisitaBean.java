@@ -53,8 +53,10 @@ public class VisitaBean implements Serializable{
     public void visualizarDetalhesVisita(Visita v){
         this.visita = v;
         if(v != null){
+            procedimentos = new ArrayList<Procedimento>();
         for (int i = 0; i < v.getItens().size(); i++) {
             Procedimento p = new Procedimento();
+            p = v.getItens().get(i).getProcedimento();
             p.setPreco(v.getItens().get(i).getValorPago());
             procedimentos.add(p);
             }
