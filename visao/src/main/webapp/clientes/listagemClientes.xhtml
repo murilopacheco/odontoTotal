@@ -107,9 +107,9 @@
                             <h:outputText value="#{c.convenio.nome}" />
                         </p:column>
                         <p:column headerText="Ações">
-                            <p:button
+                            <h:commandButton
                                 onclick="#{clienteBean.prepararAtualizacaoCliente(c)}"
-                                title="Editar" icon="ui-icon-pencil"/>
+                                value="Editar" />
                         </p:column>
                     </p:dataTable>
                 </h:form>

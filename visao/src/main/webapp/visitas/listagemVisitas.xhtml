@@ -66,7 +66,7 @@
                                 <h:outputText value="#{p.preco}" />
                             </p:column>
                             <f:facet name="footer">
-                                <p:commandButton process="lista_procedimentos" update="lista_procedimentos" icon="ui-icon-trash" value="Excluir" onclick="#{visitaBean.removeProcedimento()}" />
+                                <h:commandButton process="lista_procedimentos" update="lista_procedimentos" value="Excluir" onclick="#{visitaBean.removeProcedimento()}" />
                             </f:facet>
                         </p:dataTable>
 
@@ -78,43 +78,35 @@
 
                 <h:form id="formLista">
                     <p:dataTable id="tabela_Visitas"
-                                 var="vis"
+                                 var="v"
                                  value="#{visitaBean.visitas}"
-                                 rows="10"
-                                 paginator="true"
-                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink}
-                                 {PreviousPageLink} {PageLinks} {NextPageLink}
-                                 {LastPageLink} {RowsPerPageDropdown}"
-                                 rowsPerPageTemplate="10,20,50,100,1000"
-                                 sortBy="#{vis.dataVisita}"
-                                 rowKey="#{v.id}"
                                  emptyMessage="Nenhuma visita encontrada" >
                         <p:column headerText="Id" filterBy="#{v.id}"
-                                  sortBy="#{vis.id}" filterMatchMode="exact">
-                            <h:outputText value="#{vis.id}" />
+                                  sortBy="#{v.id}" filterMatchMode="exact">
+                            <h:outputText value="#{v.id}" />
                         </p:column>
                         <p:column headerText="Data"
-                                  filterBy="#{vis.dataVisita}"
-                                  sortBy="#{vis.dataVisita}"
+                                  filterBy="#{v.dataVisita}"
+                                  sortBy="#{v.dataVisita}"
                                   filterMatchMode="exact">
                             <h:outputText value="#{v.dataVisita}" />
                         </p:column>
                         <p:column headerText="Cliente"
-                                  filterBy="#{vis.cliente.nome}"
-                                  sortBy="#{vis.cliente.nome}"
+                                  filterBy="#{v.cliente.nome}"
+                                  sortBy="#{v.cliente.nome}"
                                   filterMatchMode="startsWith">
-                            <h:outputText value="#{vis.cliente.nome}" />
+                            <h:outputText value="#{v.cliente.nome}" />
                         </p:column>
                         <p:column headerText="Convenio"
-                                  filterBy="#{vis.cliente.convenio.nome}"
-                                  sortBy="#{vis.cliente.convenio.nome}"
+                                  filterBy="#{v.cliente.convenio.nome}"
+                                  sortBy="#{v.cliente.convenio.nome}"
                                   filterMatchMode="startsWith">
-                            <h:outputText value="#{vis.cliente.convenio.nome}" />
+                            <h:outputText value="#{v.cliente.convenio.nome}" />
                         </p:column>
                         <p:column headerText="Ações">
-                            <p:button
-                                    onclick="#{visitaBean.visualizarDetalhesVisita(vis)}"
-                                    update="lista_procedimentos,formVisita" value="Detalhes" icon="ui-icon-info" />
+                            <h:commandButton update=":formVisita , :formProcedimentos"
+                                             image="ui-icon-search" value="Detalhes"
+                            action="#{visitaBean.visualizarDetalhesVisita(v)}"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>
