@@ -44,8 +44,9 @@
                         <p:ajax event="itemSelect" listener="#{visitaBean.adicionaProcedimento}" update="msgs , formProcedimentos, compProcedimento" />
                         </p:autoComplete>
 
-                        <p:commandButton id="btnAtualizar" value="Salvar" action="#{visitaBean.salvarVisita}"  update="formLista" />
-                        <p:commandButton id="btnNovo" value="Novo" action="#{clienteBean.novoCliente}"  />
+                        <p:commandButton id="btnAtualizar" value="Salvar" action="#{visitaBean.salvarVisita}"  update="formProcedimentos,formLista, msgs" />
+                        <p:commandButton id="btnNovo" value="Limpar" action="#{visitaBean.limparVisita}"
+                        update="formProcedimentos"/>
 
                     </p:panelGrid>
                 </h:form>
@@ -105,7 +106,7 @@
                         </p:column>
                         <p:column headerText="Ações">
                             <h:commandButton update=":formVisita , :formProcedimentos"
-                                             image="ui-icon-search" value="Detalhes"
+                                             value="Detalhes"
                             action="#{visitaBean.visualizarDetalhesVisita(v)}"/>
                         </p:column>
                     </p:dataTable>

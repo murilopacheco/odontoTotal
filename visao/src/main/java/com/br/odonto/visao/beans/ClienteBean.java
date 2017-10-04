@@ -107,6 +107,11 @@ public class ClienteBean implements Serializable {
         }
     }
 
+    public String abrirVisita(Cliente cliente){
+        this.cliente = cliente;
+        return "/visitas/listagemVisitas";
+    }
+
     public void prepararAtualizacaoCliente(Cliente cliente) {
         this.cliente = cliente;
     }

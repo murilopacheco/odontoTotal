@@ -44,7 +44,7 @@ public class VisitaBean implements Serializable{
 
     @PostConstruct
     public void init(){
-
+        visita = new Visita();
         visita.setDataVisita(LocalDate.now());
         procedimentos = new ArrayList<Procedimento>();
         consultar();
@@ -95,6 +95,8 @@ public class VisitaBean implements Serializable{
 
     public String salvarVisita(){
         if(procedimentos != null) {
+            visita = new Visita();
+            visita.setDataVisita(LocalDate.now());
             visita.setCliente(clienteBean.getCliente());
             itens = new ArrayList<ItensVisita>();
             for (Iterator<Procedimento> iter = procedimentos.iterator(); iter.hasNext(); ) {
@@ -109,11 +111,21 @@ public class VisitaBean implements Serializable{
             visita.setItens(itens);
             List<String> inconsistencias = controller.atualizar(visita);
             consultar();
-            return "/clientes/listagemVisitas";
+            if(inconsistencias.isEmpty()) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Visita salva com sucesso"));
+            }
+            visita = new Visita();
+            visita.setDataVisita(LocalDate.now());
+            procedimentos = new ArrayList<Procedimento>();
+            return "/visitas/listagemVisitas";
         }else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Visita não salva falta adicionar procedimentos"));
             return"/clientes/listagemVisitas";
         }
+    }
+    public void limparVisita(){
+        procedimentos = new ArrayList<Procedimento>();
+        procedimentosSelecionados = new ArrayList<Procedimento>();
     }
 
     public ClienteBean getClienteBean() {

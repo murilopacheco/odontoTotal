@@ -126,3 +126,24 @@ header nav{
 .ui-datatable .ui-column-filter{
     width: 75% !important;
 }
+
+.value {
+    width: 1000px;
+}
+.cancelado #fc-bg {
+    background: red; !important;
+}
+.cancelado .fc-event-inner {
+    background-color: red;!important;
+}
+.cancelado .fc-time-grid-event {
+    background: red;!important;
+
+}
+.cancelado .fc-content {
+    background: red;!important;
+}
+cancelado a.fc-time-grid-event a.fc-v-event a.fc-event a.fc-start a.fc-end  a.fc-draggable a.fc-resizable{
+    background-color: red;!important;
+    background-color: inherit;
+}

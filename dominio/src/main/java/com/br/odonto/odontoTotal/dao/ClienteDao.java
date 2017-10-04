@@ -1,6 +1,9 @@
 package com.br.odonto.odontoTotal.dao;
 
 import com.br.odonto.odontoTotal.dominio.Cliente;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
 
 /**
@@ -30,6 +33,21 @@ public class ClienteDao extends GenericDao<Cliente> implements IEntityDao<Client
     @Override
     public List<Cliente> buscarTodos() {
         return super.buscarTodos(Cliente.class);
+    }
+
+    public List<Cliente> pesquisarPorCliente(String cliente) {
+        if(cliente==null || cliente.isEmpty()){
+            return buscarTodos();
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("select c ").
+                append("from Cliente c ").
+                append("where c.nome like '").
+                append(cliente).
+                append("%'");
+        EntityManager em = ConnectionFactory.obterManager();
+        Query query = em.createQuery(sb.toString());
+        return query.getResultList();
     }
 
 }

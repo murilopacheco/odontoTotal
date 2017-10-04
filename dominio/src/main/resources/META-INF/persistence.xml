@@ -7,6 +7,8 @@
     <class>com.br.odonto.odontoTotal.dominio.Procedimento</class>
     <class>com.br.odonto.odontoTotal.dominio.TipoProcedimento</class>
     <class>com.br.odonto.odontoTotal.dominio.Visita</class>
+    <class>com.br.odonto.odontoTotal.dominio.Convenio</class>
+
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/odontoAtual"/>
       <property name="javax.persistence.jdbc.user" value="odontoAtual"/>
@@ -17,6 +19,13 @@
       <property name="connection.autoReconnect" value="true"/>
       <property name="connection.autoReconnectForPools" value="true"/>
       <property name="connection.is-connection-validation-required" value="true"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL57Dialect"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.format_sql" value="true"/>
+      <property name="hibernate.id.new_generator_mappings" value="false"/>
+      <property name="hibernate.enable_lazy_load_no_trans" value="true" />
+
+
      <!-- <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/> -->
      </properties>
    </persistence-unit>

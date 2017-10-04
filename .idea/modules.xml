@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/controller/controller.iml" filepath="$PROJECT_DIR$/controller/controller.iml" />
-      <module fileurl="file://$PROJECT_DIR$/controller/controller.iml" filepath="$PROJECT_DIR$/controller/controller.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dominio/dominio.iml" filepath="$PROJECT_DIR$/dominio/dominio.iml" />
       <module fileurl="file://$PROJECT_DIR$/dominio/dominio.iml" filepath="$PROJECT_DIR$/dominio/dominio.iml" />
       <module fileurl="file://$PROJECT_DIR$/odontoTotal.iml" filepath="$PROJECT_DIR$/odontoTotal.iml" />
       <module fileurl="file://$PROJECT_DIR$/visao/visao.iml" filepath="$PROJECT_DIR$/visao/visao.iml" />

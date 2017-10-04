@@ -28,4 +28,12 @@ public class ClienteController {
         }
         return inconsistencias;
     }
+    public Cliente buscar(Long id) {
+        Cliente cliente = new Cliente();
+        cliente = dao.buscar(id);
+        return cliente;
+    }
+    public List<Cliente> pesquisarPorCliente(String cliente) {
+        return dao.pesquisarPorCliente(cliente);
+    }
 }

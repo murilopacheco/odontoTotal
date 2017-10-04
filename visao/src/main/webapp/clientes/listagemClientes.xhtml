@@ -108,8 +108,11 @@
                         </p:column>
                         <p:column headerText="Ações">
                             <h:commandButton
-                                onclick="#{clienteBean.prepararAtualizacaoCliente(c)}"
-                                value="Editar" />
+                                action="#{clienteBean.prepararAtualizacaoCliente(c)}"
+                                value="Editar" update="formDadosCliente" />
+                            <h:commandButton
+                                    action="#{clienteBean.abrirVisita(c)}"
+                                    value="Visitas" />
                         </p:column>
                     </p:dataTable>
                 </h:form>
