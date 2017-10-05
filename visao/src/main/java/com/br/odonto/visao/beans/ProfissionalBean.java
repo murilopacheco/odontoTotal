@@ -47,12 +47,16 @@ public class ProfissionalBean implements Serializable {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Atualização realizada com sucesso", "");
             contexto.addMessage("/profissionais/listagemProfissionais", msg);
             contexto.getExternalContext().getFlash().setKeepMessages(true);
-            return "/profissionais/listagemProfissionais";
+            profissionais.add(profissional);
+            profissional = new Profissional();
+            return "/profissional/listagemProfissionais";
+
         }
         inconsistencias.forEach((inconsistencia) -> {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(inconsistencia));
         });
-        return "/profissionais/listagemProfissionais";
+        profissional = new Profissional();
+        return "/profissional/listagemProfissionais";
 
     }
 

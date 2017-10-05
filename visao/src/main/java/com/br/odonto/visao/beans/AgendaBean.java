@@ -9,7 +9,10 @@ import com.br.odonto.odontoTotal.dominio.Profissional;
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
 import org.primefaces.event.SelectEvent;
-import org.primefaces.model.*;
+import org.primefaces.model.DefaultScheduleEvent;
+import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.ScheduleEvent;
+import org.primefaces.model.ScheduleModel;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -18,7 +21,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -51,7 +53,7 @@ public class AgendaBean implements Serializable {
         eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", nextDay9Am(), nextDay11Am(), "confirmado"));
         eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", theDayAfter3Pm(), fourDaysLater3pm(),"cancelado"));
       //  eventModel.addEvent(new DefaultScheduleEvent(cliente.getNome() + procedimento.getNome(), new Date(),new Date(), "home"));
-    listarConvenios();
+    listarProfissionais();
     }
 
     public Date getRandomDate(Date base) {
@@ -202,7 +204,7 @@ public class AgendaBean implements Serializable {
         addMessage(message);
     }
 
-    public void listarConvenios(){
+    public void listarProfissionais(){
         ProfissionalController con = new ProfissionalController();
         profissionais = con.consultar();
     }

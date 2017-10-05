@@ -69,6 +69,7 @@ public class Profissional extends ValidadorGenerico implements Serializable {
 
     @Override
     public List<String> validar() {
-        return null;
+        validarNaoNulo(CPF, "CPF");
+        return inconsistencias;
     }
 }

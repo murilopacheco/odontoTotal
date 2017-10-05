@@ -49,16 +49,14 @@
                         <p:outputLabel value="Responsável:" for="txtResponsavel"/>
                         <p:inputText id="txtResponsavel" value="#{clienteBean.cliente.responsavel}"/>
                         <p:outputLabel value="Convênio" for="lstConvenio"/>
-                        <p:selectOneListbox id="lstConvenio" 
-                                            value="#{clienteBean.cliente.convenio}" 
-                                           converter="jsfConvenioConverter" var="c"
-                                           filter="true" filterMatchMode="contains">
-                           <f:selectItems value="#{clienteBean.convenios}" var="convenio" 
-                                          itemLabel="#{convenio.nome}" itemValue="#{convenio}" />
+                        <p:selectOneMenu id="lstConvenio" value="#{clienteBean.cliente.convenio}" converter="jsfConvenioConverter" panelStyle="width:180px"
+                                         effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
+                            <f:selectItems value="#{clienteBean.convenios}" var="theme" itemLabel="#{theme.nome}" itemValue="#{theme}" />
+
                             <p:column>
-                                <h:outputText value="#{c.nome}" />
+                                <h:outputText value="#{t.nome}" />
                             </p:column>
-                        </p:selectOneListbox>
+                        </p:selectOneMenu>
                         <p:outputLabel value="Plano" for="txtPlano"/>
                         <p:inputText id="txtPlano" value="#{clienteBean.cliente.plano}"/>
                         <p:commandButton id="btnAtualizar" value="Salvar" action="#{clienteBean.atualizar}" update="formLista, formDadosCliente, growl" />

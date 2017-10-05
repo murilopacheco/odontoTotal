@@ -72,17 +72,15 @@
                     forceSelection="true">
                 <p:ajax event="itemSelect" listener="#{agendaBean.setProcedimento(pro)}" />
             </p:autoComplete>
-            <p:outputLabel value="Profissional" for="lstProfissionais"/>
-            <p:selectOneListbox id="lstProfissionais"
-                                value="#{agendaBean.profissionais}"
-                                converter="jsfProfissionalConverter" var="prof"
-                                filter="true" filterMatchMode="contains">
-                <f:selectItems value="#{agendaBean.profissional}" var="profissional"
-                               itemLabel="#{profissional.nome}" itemValue="#{profissional}" />
+            <p:outputLabel for="Profissionais" value="Profissional:" />
+            <p:selectOneMenu id="Profissionais" value="#{agendaBean.profissional}" converter="jsfProfissionalConverter" panelStyle="width:180px"
+                             effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
+                <f:selectItems value="#{agendaBean.profissionais}" var="theme" itemLabel="#{theme.nome}" itemValue="#{theme}" />
+
                 <p:column>
-                    <h:outputText value="#{prof.nome}" />
+                    <h:outputText value="#{t.nome}" />
                 </p:column>
-            </p:selectOneListbox>
+            </p:selectOneMenu>
             <p:outputLabel for="title" value="Titles:" />
             <p:inputText id="title" value="#{agendaBean.event.title}" required="true" />
 
