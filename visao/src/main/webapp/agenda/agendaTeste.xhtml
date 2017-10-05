@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+
+</h:head>
+
+<h:body>
+    <ui:composition template="/template/layout.xhtml">
+
+    <ui:define name="content">
+<h1>
+    Agenda de Horários
+</h1>
+<h:form>
+    <p:growl id="messages" showDetail="true" />
+<p:commandButton oncomplete="PF('eventDialog').show();" value="Novo Agendamento" icon="ui-icon-disk"/>
+
+    <h:panelGrid columnClasses="value">
+        <h3 style="margin-top: 0">Editable Schedule</h3>
+        <p:schedule id="schedule" value="#{agendaBean.eventModel}" widgetVar="myschedule"
+                    timeZone="GMT-3" locale="pt" minTime="7:00" maxTime="19:00"
+                    timeFormat="HH:mm" axisFormat="HH:mm"
+                    slotMinutes="15" clientTimeZone="America/Sao_Paulo"
+                    tooltip="true" displayEventEnd="false"
+        view="agendaWeek" >
+
+            <p:ajax event="dateSelect" listener="#{agendaBean.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+            <p:ajax event="eventSelect" listener="#{agendaBean.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+            <p:ajax event="eventMove" listener="#{agendaBean.onEventMove}" update="messages" />
+            <p:ajax event="eventResize" listener="#{agendaBean.onEventResize}" update="messages" />
+
+        </p:schedule>
+    </h:panelGrid>
+
+    <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+        <h:panelGrid id="eventDetails" columns="2">
+            <p:outputLabel value="Cliente" for="compCliente"/>
+            <p:autoComplete
+                    id="compCliente"
+                    value="#{agendaBean.cliente}"
+                    converter="jsfClienteConverter"
+                    completeMethod="#{agendaBean.listaClientes}"
+                    var="cli"
+                    itemLabel="#{cli.nome}"
+                    itemValue="#{cli}"
+                    dropdown="false"
+                    scrollHeight="100"
+                    queryDelay="500"
+                    effect="fade"
+                    forceSelection="true">
+                <p:ajax event="itemSelect" listener="#{agendaBean.setCliente(cli)}"  />
+            </p:autoComplete>
+            <p:outputLabel value="Procedimento" for="compProcedimento"/>
+            <p:autoComplete
+                    id="compProcedimento"
+                    value="#{visitaBean.procedimento}"
+                    converter="jsfProcedimentoConverter"
+                    completeMethod="#{agendaBean.listaProcedimentos}"
+                    var="pro"
+                    itemLabel="#{pro.nome}"
+                    itemValue="#{pro}"
+                    dropdown="false"
+                    scrollHeight="100"
+                    queryDelay="500"
+                    effect="fade"
+                    forceSelection="true">
+                <p:ajax event="itemSelect" listener="#{agendaBean.setProcedimento(pro)}" />
+            </p:autoComplete>
+            <p:outputLabel value="Profissional" for="lstProfissionais"/>
+            <p:selectOneListbox id="lstProfissionais"
+                                value="#{agendaBean.profissionais}"
+                                converter="jsfProfissionalConverter" var="prof"
+                                filter="true" filterMatchMode="contains">
+                <f:selectItems value="#{agendaBean.profissional}" var="profissional"
+                               itemLabel="#{profissional.nome}" itemValue="#{profissional}" />
+                <p:column>
+                    <h:outputText value="#{prof.nome}" />
+                </p:column>
+            </p:selectOneListbox>
+            <p:outputLabel for="title" value="Titles:" />
+            <p:inputText id="title" value="#{agendaBean.event.title}" required="true" />
+
+            <p:outputLabel for="from" value="From:" />
+            <p:calendar id="from" value="#{agendaBean.event.startDate}" timeZone="GMT-3" pattern="dd/MM/yyyy HH:mm"/>
+
+            <p:outputLabel for="to" value="To:" />
+            <p:calendar id="to" value="#{agendaBean.event.endDate}" timeZone="GMT-3" pattern="dd/MM/yyyy HH:mm"/>
+
+            <p:outputLabel for="allDay" value="All Day:" />
+            <h:selectBooleanCheckbox id="allDay" value="#{agendaBean.event.allDay}" />
+
+
+
+            <p:commandButton type="reset" value="Reset" />
+            <p:commandButton id="addButton" value="Save" actionListener="#{agendaBean.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+        </h:panelGrid>
+    </p:dialog>
+</h:form>
+    </ui:define>
+
+    </ui:composition>
+</h:body>
+
+
+</html>
+

@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template/layout.xhtml">
+
+            <ui:define name="content">
+                <h1>
+                    Cadastro de Profissionais
+                </h1>
+                <h:form id="formDados">
+                    <p:growl id="growl"/>
+                    <p:panelGrid columns="4" >
+                        <p:outputLabel value="Nome:" for="txtNome"/>
+                        <p:inputText id="txtNome" value="#{profissionalBean.profissional.nome}"/>
+                        <p:outputLabel value="CPF:" for="txtCPF"/>
+                        <p:inputMask id="txtCPF" value="#{profissionalBean.profissional.CPF}"
+                                     mask="999.999.999-99"/>
+                        <p:outputLabel value="CRO:" for="txtCRO"/>
+                        <p:inputText id="txtCRO" value="#{profissionalBean.profissional.CRO}"/>
+                        <p:outputLabel value="Telefone:" for="txtTelefone"/>
+                        <p:inputText id="txtTelefone" value="#{profissionalBean.profissional.telefone}"/>
+                        <p:outputLabel value="E-mail:" for="txtEmail"/>
+                        <p:inputText id="txtEmail" value="#{profissionalBean.profissional.email}"/>
+
+                        <p:commandButton id="btnAtualizar" value="Salvar" action="#{profissionalBean.atualizar}" update="formLista, formDados, growl" />
+                        <p:commandButton id="btnNovo" value="Novo" action="#{profissionalBean.novoProfissional}" update="formDados" />
+
+                    </p:panelGrid>
+                </h:form>
+                
+                
+                <h1>Listagem de Profissionais</h1>
+
+                <h:form id="formLista">
+
+                    <p:dataTable id="tabela_profissionais"
+                                 var="prof"
+                                 value="#{profissionalBean.profissionais}"
+                                 rows="10" 
+                                 paginator="true" 
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
+                                 {PreviousPageLink} {PageLinks} {NextPageLink} 
+                                 {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="10,20,50,100,1000"
+                                 selectionMode="single"
+                                 rowKey="#{prof.id}"
+                                 emptyMessage="Nenhum cliente encontrado" >
+                        <p:column headerText="Id" filterBy="#{c.id}" 
+                                  sortBy="#{prof.id}" filterMatchMode="exact">
+                            <h:outputText value="#{prof.id}" />
+                        </p:column>
+                        <p:column headerText="Nome" 
+                                  filterBy="#{prof.nome}"
+                                  sortBy="#{prof.nome}"
+                                  filterMatchMode="startsWith">
+                            <h:outputText value="#{prof.nome}" />
+                        </p:column>
+                        <p:column headerText="CRO"
+                                  filterBy="#{prof.CRO}"
+                                  sortBy="#{prof.CRO}"
+                                  filterMatchMode="startsWith">
+                            <h:outputText value="#{prof.CRO}" />
+                        </p:column>
+                        <p:column headerText="Telefone"
+                                  filterBy="#{prof.telefone}"
+                                  sortBy="#{prof.telefone}"
+                                  filterMatchMode="startsWith">
+                            <h:outputText value="#{prof.telefone}" />
+                        </p:column>
+                        <p:column headerText="Ações">
+                            <h:commandButton
+                                action="#{profissionalBean.editar(prof)}"
+                                value="Editar" update="formDados" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>
+
