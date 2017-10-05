@@ -81,8 +81,6 @@
                     <h:outputText value="#{t.nome}" />
                 </p:column>
             </p:selectOneMenu>
-            <p:outputLabel for="title" value="Titles:" />
-            <p:inputText id="title" value="#{agendaBean.event.title}" required="true" />
 
             <p:outputLabel for="from" value="From:" />
             <p:calendar id="from" value="#{agendaBean.event.startDate}" timeZone="GMT-3" pattern="dd/MM/yyyy HH:mm"/>

@@ -3,6 +3,7 @@ package com.br.odonto.visao.beans;
 import com.br.odonto.odontoTotal.controller.ClienteController;
 import com.br.odonto.odontoTotal.controller.ProcedimentoController;
 import com.br.odonto.odontoTotal.controller.ProfissionalController;
+import com.br.odonto.odontoTotal.dominio.Agendamento;
 import com.br.odonto.odontoTotal.dominio.Cliente;
 import com.br.odonto.odontoTotal.dominio.Procedimento;
 import com.br.odonto.odontoTotal.dominio.Profissional;
@@ -21,6 +22,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -35,6 +37,7 @@ public class AgendaBean implements Serializable {
     private Procedimento procedimento = new Procedimento();
     private Profissional profissional = new Profissional();
     private List<Profissional> profissionais = new ArrayList<Profissional>();
+    private Agendamento agendamento;
 
 
 
@@ -174,14 +177,23 @@ public class AgendaBean implements Serializable {
     }
 
     public void addEvent(ActionEvent actionEvent) {
-        if(event.getId() == null)
-            eventModel.addEvent(event);
-        else
-            eventModel.updateEvent(event);
+        if(event.getId() == null) {
+            agendamento.setHoraInicio(convertDate(event.getStartDate()));
+            agendamento.setHoraFim(convertDate(event.getEndDate()));
+            agendamento.setProcedimento(procedimento);
+            agendamento.setCliente(cliente);
+            agendamento.setProfissional(profissional);
+            agendamento.setTitulo("Agendamento - Cliente: " + cliente.getNome() + " \n Dentista: "
+                    + profissional.getNome() + "\n Procedimento: " + procedimento.getNome());
 
+            eventModel.addEvent(new DefaultScheduleEvent(agendamento.getTitulo(), convertDate(agendamento.getHoraInicio()), convertDate(agendamento.getHoraFim())));
+        } else {
+            eventModel.updateEvent(event);
+        }
         event = new DefaultScheduleEvent();
         cliente = new Cliente();
         procedimento = new Procedimento();
+        profissional = new Profissional();
     }
 
     public void onEventSelect(SelectEvent selectEvent) {
@@ -207,6 +219,15 @@ public class AgendaBean implements Serializable {
     public void listarProfissionais(){
         ProfissionalController con = new ProfissionalController();
         profissionais = con.consultar();
+    }
+
+    public LocalDate convertDate(Date date){
+        LocalDate d;
+        d = ((java.sql.Date)date).toLocalDate();
+        return  d;
+    }
+    public Date convertDate(LocalDate date){
+        return  java.sql.Date.valueOf(date);
     }
 
     private void addMessage(FacesMessage message) {
@@ -245,4 +266,11 @@ public class AgendaBean implements Serializable {
         this.profissionais = profissionais;
     }
 
+    public Agendamento getAgendamento() {
+        return agendamento;
+    }
+
+    public void setAgendamento(Agendamento agendamento) {
+        this.agendamento = agendamento;
+    }
 }
