@@ -2,8 +2,10 @@ package com.br.odonto.visao.beans;
 
 import com.br.odonto.odontoTotal.controller.ClienteController;
 import com.br.odonto.odontoTotal.controller.ProcedimentoController;
+import com.br.odonto.odontoTotal.controller.ProfissionalController;
 import com.br.odonto.odontoTotal.dominio.Cliente;
 import com.br.odonto.odontoTotal.dominio.Procedimento;
+import com.br.odonto.odontoTotal.dominio.Profissional;
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
 import org.primefaces.event.SelectEvent;
@@ -17,6 +19,7 @@ import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -28,6 +31,11 @@ public class AgendaBean implements Serializable {
     private ScheduleModel eventModel;
     private Cliente cliente = new Cliente();
     private Procedimento procedimento = new Procedimento();
+    private Profissional profissional = new Profissional();
+    private List<Profissional> profissionais = new ArrayList<Profissional>();
+
+
+
 
     private ScheduleEvent event = new DefaultScheduleEvent();
 
@@ -36,14 +44,14 @@ public class AgendaBean implements Serializable {
 
         eventModel = new DefaultScheduleModel();
         DefaultScheduleEvent ev = new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm());
-        ev.setStyleClass("cancelado");
+        ev.setStyleClass(" confirmado");
         eventModel.addEvent(ev);
        // eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm() , "cancelado"));
         eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today6Pm(),"cancelado"));
-        eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", nextDay9Am(), nextDay11Am(), "cancelado"));
+        eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", nextDay9Am(), nextDay11Am(), "confirmado"));
         eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", theDayAfter3Pm(), fourDaysLater3pm(),"cancelado"));
       //  eventModel.addEvent(new DefaultScheduleEvent(cliente.getNome() + procedimento.getNome(), new Date(),new Date(), "home"));
-
+    listarConvenios();
     }
 
     public Date getRandomDate(Date base) {
@@ -194,6 +202,11 @@ public class AgendaBean implements Serializable {
         addMessage(message);
     }
 
+    public void listarConvenios(){
+        ProfissionalController con = new ProfissionalController();
+        profissionais = con.consultar();
+    }
+
     private void addMessage(FacesMessage message) {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
@@ -213,4 +226,21 @@ public class AgendaBean implements Serializable {
     public void setProcedimento(Procedimento procedimento) {
         this.procedimento = procedimento;
     }
+
+    public Profissional getProfissional() {
+        return profissional;
+    }
+
+    public void setProfissional(Profissional profissional) {
+        this.profissional = profissional;
+    }
+
+    public List<Profissional> getProfissionais() {
+        return profissionais;
+    }
+
+    public void setProfissionais(List<Profissional> profissionais) {
+        this.profissionais = profissionais;
+    }
+
 }

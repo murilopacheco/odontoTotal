@@ -55,6 +55,15 @@ public class DataGenerator {
         procedimento.setTipoProcedimento(tipoProcedimento2);
 
         em.persist(procedimento);
+
+        Profissional profissional = new Profissional();
+        profissional.setNome("Dentista teste");
+        profissional.setCPF("111.111.111-11");
+        profissional.setCRO("1234-GO");
+        profissional.setEmail("dentista@dentista.com");
+        profissional.setTelefone("(62) 98888-8888");
+
+        em.persist(profissional);
         
         cliente.setNome("Cliente Teste");
         cliente.setCPF("673.780.581-73");

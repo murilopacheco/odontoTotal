@@ -131,19 +131,27 @@ header nav{
     width: 1000px;
 }
 .cancelado #fc-bg {
-    background: red; !important;
-}
-.cancelado .fc-event-inner {
-    background-color: red;!important;
-}
-.cancelado .fc-time-grid-event {
-    background: red;!important;
-
+    background: red;
 }
 .cancelado .fc-content {
-    background: red;!important;
+    background: red;
 }
-cancelado a.fc-time-grid-event a.fc-v-event a.fc-event a.fc-start a.fc-end  a.fc-draggable a.fc-resizable{
-    background-color: red;!important;
-    background-color: inherit;
+.cancelado .fc-event[href] fc-time-grid-event
+fc-v-event fc-event fc-start
+fc-end fc-draggable fc-resizable
+fc-resizer fc-end-resizer{
+    background-color: red;
+}
+
+.confirmado #fc-bg {
+    background: green;
+}
+.confirmado .fc-content {
+    background: green;
+}
+.confirmado .fc-event[href] fc-time-grid-event
+fc-v-event fc-event fc-start
+fc-end fc-draggable fc-resizable
+fc-resizer fc-end-resizer{
+    background-color: green;
 }
