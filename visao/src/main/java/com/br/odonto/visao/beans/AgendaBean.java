@@ -22,7 +22,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -52,11 +55,7 @@ public class AgendaBean implements Serializable {
         DefaultScheduleEvent ev = new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm());
         ev.setStyleClass(" confirmado");
         eventModel.addEvent(ev);
-       // eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm() , "cancelado"));
-        eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today6Pm(),"cancelado"));
-        eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", nextDay9Am(), nextDay11Am(), "confirmado"));
-        eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", theDayAfter3Pm(), fourDaysLater3pm(),"cancelado"));
-      //  eventModel.addEvent(new DefaultScheduleEvent(cliente.getNome() + procedimento.getNome(), new Date(),new Date(), "home"));
+
     listarProfissionais();
     }
 
@@ -179,6 +178,7 @@ public class AgendaBean implements Serializable {
 
     public void addEvent(ActionEvent actionEvent) {
         if(event.getId() == null) {
+            agendamento = new Agendamento();
             agendamento.setHoraInicio(convertDate(event.getStartDate()));
             agendamento.setHoraFim(convertDate(event.getEndDate()));
             agendamento.setProcedimento(procedimento);
@@ -196,6 +196,15 @@ public class AgendaBean implements Serializable {
         procedimento = new Procedimento();
         profissional = new Profissional();
     }
+
+//    public void addEvent(ActionEvent actionEvent) {
+//        if(event.getId() == null)
+//            eventModel.addEvent(event);
+//        else
+//            eventModel.updateEvent(event);
+//
+//        event = new DefaultScheduleEvent();
+//    }
 
     public void onEventSelect(SelectEvent selectEvent) {
         event = (ScheduleEvent) selectEvent.getObject();
@@ -222,15 +231,15 @@ public class AgendaBean implements Serializable {
         profissionais = con.consultar();
     }
 
-    public LocalDate convertDate(Date date){
-        LocalDate d;
-        java.sql.Date sqlDate = (java.sql.Date) date;
-        d = sqlDate.toLocalDate();
-        return  d;
+    public LocalDateTime convertDate(Date date){
+        Instant instant = date.toInstant();
+        ZoneId zoneId = ZoneId.of( "America/Sao_Paulo" );
+        return  instant.atZone(zoneId).toLocalDateTime();
     }
 
-    public Date convertDate(LocalDate date){
-        return  java.sql.Date.valueOf(date);
+    public Date convertDate(LocalDateTime date){
+        ZoneId zoneId = ZoneId.of( "America/Sao_Paulo" );
+        return  Date.from(date.atZone(zoneId).toInstant());
     }
 
     private void addMessage(FacesMessage message) {

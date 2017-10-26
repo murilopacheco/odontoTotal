@@ -17,11 +17,10 @@ public class ConnectionFactory {
 
     public static EntityManager obterManager() {
         try {
-            if(emf == null) {
+
                 emf = Persistence.createEntityManagerFactory("odontoAtualPU");
-            }else if (em == null || !em.isOpen()) {
+            if(em == null || !em.isOpen())
                 em = emf.createEntityManager();
-            }
         } catch (Exception e) {
             System.out.println("Não foi possível criar Entidade de Persistência");
             Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, "Não foi possível criar Entidade de Persistência!", e);

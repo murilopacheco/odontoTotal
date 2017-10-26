@@ -3,6 +3,7 @@ package com.br.odonto.odontoTotal.dominio;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @DiscriminatorValue("AG")
@@ -11,8 +12,8 @@ public class Agendamento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private LocalDate horaInicio;
-    private LocalDate horaFim;
+    private LocalDateTime horaInicio;
+    private LocalDateTime horaFim;
     private String titulo;
     private String status;
 
@@ -33,19 +34,19 @@ public class Agendamento implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getHoraInicio() {
+    public LocalDateTime getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(LocalDate horaInicio) {
+    public void setHoraInicio(LocalDateTime horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public LocalDate getHoraFim() {
+    public LocalDateTime getHoraFim() {
         return horaFim;
     }
 
-    public void setHoraFim(LocalDate horaFim) {
+    public void setHoraFim(LocalDateTime horaFim) {
         this.horaFim = horaFim;
     }
 

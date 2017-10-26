@@ -32,7 +32,9 @@
                     timeFormat="HH:mm" axisFormat="HH:mm"
                     slotMinutes="15" clientTimeZone="America/Sao_Paulo"
                     tooltip="true" displayEventEnd="false"
-        view="agendaWeek" >
+                    columnFormat="month:'ddd', week:'dd/MM', day:'dd/MM/yyyy'}, titleFormat: {day: 'dddd, dd \'de\' MMMM \'de\' yyyy'"
+
+        view="agendaWeek">
 
             <p:ajax event="dateSelect" listener="#{agendaBean.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
             <p:ajax event="eventSelect" listener="#{agendaBean.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
@@ -63,7 +65,7 @@
             <p:outputLabel value="Procedimento" for="compProcedimento"/>
             <p:autoComplete
                     id="compProcedimento"
-                    value="#{visitaBean.procedimento}"
+                    value="#{agendaBean.procedimento}"
                     converter="jsfProcedimentoConverter"
                     completeMethod="#{agendaBean.listaProcedimentos}"
                     var="pro"
@@ -74,7 +76,7 @@
                     queryDelay="500"
                     effect="fade"
                     forceSelection="true">
-                <p:ajax event="itemSelect" listener="#{agendaBean.setProcedimento(pro)}" />
+                <p:ajax event="itemSelect" listener="#{agendaBean.setProcedimen(pro)}" />
             </p:autoComplete>
             <p:outputLabel for="lstProfissionais" value="Profissional:" />
             <p:selectOneMenu id="lstProfissionais" value="#{agendaBean.profissional}" converter="jsfProfissionalConverter" panelStyle="width:180px"
