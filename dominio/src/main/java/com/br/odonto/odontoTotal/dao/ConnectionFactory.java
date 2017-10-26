@@ -17,8 +17,9 @@ public class ConnectionFactory {
 
     public static EntityManager obterManager() {
         try {
-            emf = Persistence.createEntityManagerFactory("odontoAtualPU");
-            if (em == null || !em.isOpen()) {
+            if(emf == null) {
+                emf = Persistence.createEntityManagerFactory("odontoAtualPU");
+            }else if (em == null || !em.isOpen()) {
                 em = emf.createEntityManager();
             }
         } catch (Exception e) {

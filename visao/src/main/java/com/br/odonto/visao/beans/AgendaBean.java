@@ -26,6 +26,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
 import java.util.List;
 
 @Named(value = "agendaBean")
@@ -223,9 +224,11 @@ public class AgendaBean implements Serializable {
 
     public LocalDate convertDate(Date date){
         LocalDate d;
-        d = ((java.sql.Date)date).toLocalDate();
+        java.sql.Date sqlDate = (java.sql.Date) date;
+        d = sqlDate.toLocalDate();
         return  d;
     }
+
     public Date convertDate(LocalDate date){
         return  java.sql.Date.valueOf(date);
     }
