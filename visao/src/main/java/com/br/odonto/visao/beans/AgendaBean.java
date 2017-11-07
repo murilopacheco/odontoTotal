@@ -22,10 +22,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -180,12 +177,14 @@ public class AgendaBean implements Serializable {
         if(event.getId() == null) {
             agendamento = new Agendamento();
             agendamento.setHoraInicio(convertDate(event.getStartDate()));
+            agendamento.setHoraInicio(agendamento.getHoraInicio().minusHours(1));
             agendamento.setHoraFim(convertDate(event.getEndDate()));
+            agendamento.setHoraFim(agendamento.getHoraFim().minusHours(1));
             agendamento.setProcedimento(procedimento);
             agendamento.setCliente(cliente);
             agendamento.setProfissional(profissional);
-            agendamento.setTitulo("Agendamento - Cliente: " + cliente.getNome() + " \n Dentista: "
-                    + profissional.getNome() + "\n Procedimento: " + procedimento.getNome());
+            agendamento.setTitulo("Paciente: " + cliente.getNome() + " " + LocalTime.of(agendamento.getHoraInicio().getHour(),agendamento.getHoraInicio().getMinute()) + " - "
+                    + LocalTime.of(agendamento.getHoraFim().getHour(),agendamento.getHoraFim().getMinute()));
 
             eventModel.addEvent(new DefaultScheduleEvent(agendamento.getTitulo(), convertDate(agendamento.getHoraInicio()), convertDate(agendamento.getHoraFim())));
         } else {
